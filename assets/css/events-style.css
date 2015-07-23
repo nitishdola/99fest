@@ -1,0 +1,66 @@
+.btn-fest-native{
+	background: #E95F00;
+	color:#FFF;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
+.carousel-caption {
+	top: 140px;
+	text-align:center;
+}
+.featured-img{
+	border: 3px solid #f8f8f8;
+}
+.events-ind{
+	padding:6px;
+	background: #f6f6f6;
+	border:1px solid #fafafa;
+	margin-top:5px;
+}
+.event-nav li{
+	display: inline;
+	padding:4px;
+}
+.event-nav li a{
+	color: #454545;
+}
+.event-nav li a:hover{
+	color: #222;
+	border-bottom: 1px solid #29A9E2;
+}
+
+
+.events-desc{
+	
+	position:absolute; 
+	bottom:0%; 
+	background:rgba(17,17,17, 0.68);
+	color:#FFF !important;
+}
+.events-desc h2{
+	opacity: 1;
+	font-weight: normal;
+	color:#FFF;
+	text-align: center;
+	font-size: 1em;
+}
+.events-desc h2 a{
+	color:#FFF !important;
+}
+.events-desc p{
+	text-align: center;
+}
+.e1
+{
+	margin-left:4%;
+	width:95%;	
+}
+.e2{
+	width:95%;
+}
+.e3{
+	margin-left:6%;
+	width:95%;	
+}

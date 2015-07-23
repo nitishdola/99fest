@@ -1,0 +1,91 @@
+
+
+.map {
+	height:650px;	
+}
+
+.map .map-div{
+	width:1055px;	
+	margin:0 auto;
+	padding-left:40px;
+	padding-right:40px;	
+}
+
+.map .pin-1 {
+	position:relative;
+	float:left;
+	top:130px;
+	left:0px;
+	
+}
+
+.map .pin-2 {
+	position:relative;
+	float:left;
+	top:330px;
+	left:100px;	
+}
+
+
+.map .pin-3 {
+	position:relative;
+	float:left;
+	top:230px;
+	left:500px;	
+}
+
+
+.map .pin-4 {
+	position:relative;
+	float:left;
+	top:100px;
+	left:0px;	
+}
+
+
+.map .pin-5 {
+	position:relative;
+	float:left;
+	top:430px;
+	left:250px;	
+}
+
+
+.map .pin-6 {
+	position:relative;
+	float:left;
+	top:230px;
+	left:50px;	
+}
+
+
+.map .pin-7 {
+	position:relative;
+	float:left;
+	top:330px;
+	left:500px;	
+}
+
+
+.map .pin-8 {
+	position:relative;
+	float:left;
+	top:500px;
+	left:500px;	
+}
+
+
+.map .pin-9 {
+	position:relative;
+	float:left;
+	top:200px;
+	left:500px;	
+}
+
+
+.map .pin-10 {
+	position:relative;
+	float:left;
+	top:70px;
+	left:40px;	
+}
