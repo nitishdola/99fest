@@ -221,8 +221,8 @@ function addevents() {
 			
 			/*$all_vendors = $this->vendor_model->get_with_user_details(); //var_dump($all_vendors);
 			$this->data['vendors'] = $all_vendors;*/
-			$this->data['results'] = $data["results"];
-			$this->data['links'] = $data["links"];
+			$this->data['results'] 	= $data["results"];
+			$this->data['links'] 	= $data["links"];
 			$this->load_view('vendors/view', 'admin');
 		}else{
 			redirect('users/login');
@@ -275,22 +275,19 @@ function addevents() {
 
 	///*delete vendors
        function trash($user_id){
-		if($this->ion_auth->is_admin()) {
-			 $q1=$this->db->query("delete from vendors where user_id=$user_id");
-			   if($q1){
-			   	      $this->load->helper('url');
-                      redirect('vendors/vendor');
+			if($this->ion_auth->is_admin()) {
+				$q1 = $this->db->query("delete from vendors where user_id = $user_id");
+				   if($q1){
+				   	    $this->load->helper('url');
+	                    redirect('vendors/vendor');
 
-                     /* redirect("vendors/vendor/");*/
+	                }else{
+						$this->load->helper('url');
+						redirect('vendors/view');
 
-                       }
-                      else   {
-                                   $this->load->helper('url');
-                                   redirect('vendors/view');
-
-                             }
-                       }
-            }   
+	                }
+            }
+        }   
 
 
 
@@ -612,6 +609,26 @@ function addevents() {
 		}
 
 		$this->load_view('vendors/upload_image', 'vendor');
+	}
+
+
+	public function change_vendor_status() {
+		if($this->ion_auth->is_admin()) {
+			if(isset($_GET['user_id']) && $_GET['user_id'] != '') {
+				$status = $_GET['status'];
+				
+				$user_id = $_GET['user_id'];
+				$data = array(
+	               'active' => $status
+	            ); 
+	            $this->db->where('id', $user_id);
+			
+				if($this->db->update('users', $data)) {
+					echo 1; exit;
+				}
+			}
+		}
+		echo 0;
 	}
 
 

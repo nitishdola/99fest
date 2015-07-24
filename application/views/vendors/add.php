@@ -1,13 +1,10 @@
-<!-- PAGE CONTENT -->
-    <div class="page-content">
-
-    <!--  FOr Slug Texbox  -->
- <script>
-    function copy_data(val){
-     var a = document.getElementById(val.id).value;
-     document.getElementById("slug").value=a.split(' ').join('-');
-    }    
-    </script>
+<!--  FOr Slug Texbox  -->
+<script>
+function copy_data(val){
+    var a = document.getElementById(val.id).value;
+    document.getElementById("slug").value=a.split(' ').join('-');
+}    
+</script>
 
         
         <!-- START X-NAVIGATION VERTICAL -->
@@ -123,6 +120,34 @@
         
             <div class="row">
                 <div class="col-md-12">
+
+                    <?php if($this->session->flashdata('error_message') != '') { ?>
+                    
+                    <div class="alert alert-danger fade in">
+
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+                        <strong>Error!</strong> <?= $this->session->flashdata('error_message'); ?>
+
+                    </div>
+
+                    <?php } ?>
+
+                    <?php if($this->session->flashdata('success_message') != '') { ?>
+                    
+                    <div class="alert alert-success fade in">
+
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+                        <strong>Success !</strong> <?= $this->session->flashdata('success_message'); ?>
+
+                    </div>
+
+                    <?php } ?>
+
+
+                        
+                    
 					<?php $form_attributes = array('class' => 'form-horizontal', 'id' => 'vendoraddform');	
 						echo form_open_multipart("users/do_vendor_register", $form_attributes);
                            
@@ -131,14 +156,9 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><strong>Add Vendor Information</strong> </h3>
-                            <ul class="panel-controls">
-                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-                            </ul>
+                            
                         </div>
-                        <div class="panel-body">
-                        
-                        
-                        </div>
+                      
                         
                         <div class="panel-body">                                                                        
                             
@@ -151,14 +171,16 @@
                                             $vendor_data = array(
                                               'name'        => 'name',
                                               'id'          => 'name',
+                                              'required'    => TRUE,
                                               'placeholder' => 'Enter vendor name',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
                                               'onkeyup'=>'copy_data(this)',
                                             );
 
                                         ?>
                                         <?php echo form_input($vendor_data);?>
-                                    </div>                                            
+                                    </div>  
+                                    <div class="error"><?php echo form_error('name'); ?></div>                                          
                                     <span class="help-block">Type vendor name eg Creative Decorators Group</span>                                        </div>
                             </div>
                             <div class="form-group">
@@ -168,18 +190,17 @@
                                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                         <?php 
                                             $slug_data = array(
-                                              'name'         => 'slug',
-                                              'id'           => 'slug',
-
-        
-                                              
-                                               'readonly'    =>'readonly',
-                                              'class'           => 'form-control',
+                                                'name'         => 'slug',
+                                                'id'           => 'slug',
+                                                'readonly'     =>'readonly',
+                                                'class'        => 'form-control required',
+                                                'required'     => TRUE,
                                             );
 
                                         ?>
                                         <?php echo form_input($slug_data);?>
-                                    </div>                                            
+                                    </div>    
+                                    <div class="error"><?php echo form_error('slug'); ?></div>                                         
                                     <span class="help-block"></span>                                        </div>
                             </div>
 
@@ -195,12 +216,14 @@
                                               'name'        => 'contact_number',
                                               'id'          => 'contact_number',
                                               'placeholder' => 'Enter contact number',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
+                                              'required'    => TRUE,
                                             );
 
                                         ?>
                                         <?php echo form_input($contact_number_data);?>
-                                    </div>                                            
+                                    </div>    
+                                    <div class="error"><?php echo form_error('contact_number'); ?></div>                                         
                                     <span class="help-block">Type contact number</span>                                        
                                 </div>
                             </div>
@@ -216,12 +239,15 @@
 											  'type' 		=> 'email',
                                               'id'          => 'email',
                                               'placeholder' => 'Enter email id eg vendor@xyz.com',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
+                                              'required'    => TRUE,
                                             );
 
                                         ?>
                                         <?php echo form_input($email_data);?>
-                                    </div>                                            
+                                    </div> 
+                                    <div class="error"><?php echo form_error('email'); ?></div>                                         
+
                                     <span class="help-block">Type a valid email id. <b>This email id will be used as username</b></span>                                        
                                 </div>
                             </div>
@@ -235,11 +261,14 @@
 											  'rows' 		=> '4',
                                               'id'          => 'address',
                                               'placeholder' => 'Enter address of the vendor',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
+                                              'required'    => TRUE,
                                             );
 
                                         ?>
                                     <?php echo form_textarea($area_data);?>
+                                    <div class="error"><?php echo form_error('address'); ?></div>                                         
+
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
@@ -248,7 +277,9 @@
                                 <label class="col-md-3 col-xs-12 control-label">State</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
 									<?php $states[0] = 'Please select a state'; ?>
-									<?php echo form_dropdown('state_id', $states, 0,'class="form-control" id="state_id"'); ?>
+									<?php echo form_dropdown('state_id', $states, 0,'class="form-control required" id="state_id"'); ?>
+                                    <div class="error"><?php echo form_error('state_id'); ?></div>                                         
+                                    
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
@@ -258,7 +289,8 @@
                                 <div class="col-md-6 col-xs-12">                                            
                                     <?php $cities[0] = 'Select city' ?>
 									<?php //echo form_dropdown('city_id', $cities, 0,'class="form-control" id="city_id"'); ?>								
-                                    <?php echo form_dropdown('city_id', $cities, 0,'class="form-control" id="city_id"'); ?>
+                                    <?php echo form_dropdown('city_id', $cities, 0,'class="form-control required" id="city_id"'); ?>
+                                    <div class="city_id"><?php echo form_error('state_id'); ?></div>                                         
                                     
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -277,25 +309,19 @@
 											  'type' 		=> 'number',
                                               'id'          => 'pin',
                                               'placeholder' => 'Enter PIN code',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
+                                              'required'    => TRUE,
                                             );
 
                                         ?>
                                         <?php echo form_input($pin_data);?>
-                                    </div>                                            
+                                    </div>  
+                                    <div class="error"><?php echo form_error('pin'); ?></div>                                         
+
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
-                              <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Category</label>
-                                <div class="col-md-6 col-xs-12">                                            
-                                    <div class="input-group">
-                                       <?php $vendor_categories[0] = 'Please select a category'; ?>
-                                    <?php echo form_dropdown('category_id[]', $vendor_categories, 0,'class="form-control" id="category_id"'); ?>
-                                    </div>                                            
-                                    <span class="help-block"></span>                                     
-                               </div>
-                            </div>
+                            
                              <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">About the Vendor</label>
                                 <div class="col-md-6 col-xs-12">
@@ -305,11 +331,14 @@
                                               'rows'        => '8',
                                               'id'          => 'about',
                                               'placeholder' => 'please type here..',
-                                              'class'       => 'form-control',
+                                              'class'       => 'form-control required',
+                                              'required'    => TRUE,
                                             );
 
                                         ?>
                                     <?php echo form_textarea($about_data);?>
+                                    <div class="error"><?php echo form_error('about'); ?></div>                                         
+
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
@@ -348,26 +377,14 @@
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
-                            <!--
-                            <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Checkbox</label>
-                                <div class="col-md-6 col-xs-12">                                                                                                                                        
-                                    <label class="check"><input type="checkbox" class="icheckbox" checked="checked"/> Checkbox title</label>
-                                    <span class="help-block">Checkbox sample, easy to use</span>                                        </div>
-                            </div>
-                            -->
+                            
                         </div>
                         <div class="panel-footer">
-                            <button class="btn btn-default">Clear Form</button>                                    
-                            <?php echo form_submit('addSubmit', 'Submit',"class='btn'"); ?>
+                            <button class="btn btn-default bbb">Clear Form</button>                                    
+                            <?php echo form_submit('addSubmit', 'Submit',"class='btn' id='addVendorSubmit'"); ?>
                         </div>
                     </div>
                     <?php echo form_close();?>
                 </div>
             </div>                    
         </div>
-        <!-- END PAGE CONTENT WRAPPER -->                                                
-    </div>            
-    <!-- END PAGE CONTENT -->
-</div>
-        <!-- END PAGE CONTAINER -->

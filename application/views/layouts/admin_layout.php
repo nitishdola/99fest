@@ -14,6 +14,16 @@
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo asset_url(); ?>admin/css/theme-default.css"/>
         <!-- EOF CSS INCLUDE --> 
 
+        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/bootstrap/bootstrap.min.js"></script>        
+
+        
+
+        <script src="<?php echo asset_url(); ?>sweetalert/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo asset_url(); ?>sweetalert/sweetalert.css">
+
+
         <style>
             #overlay {
                 background-color: rgba(0, 0, 0, 0.8);
@@ -81,11 +91,13 @@
         
     <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
-        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/bootstrap/bootstrap.min.js"></script>        
-        <!-- END PLUGINS -->
 
+        
+
+
+        
+        <!-- END PLUGINS -->
+        <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
         <!-- START THIS PAGE PLUGINS-->        
         <script type='text/javascript' src='<?php echo asset_url(); ?>admin/js/plugins/icheck/icheck.min.js'></script>        
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>

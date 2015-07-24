@@ -21,8 +21,13 @@ class Vendor_view extends CI_Model {
     //to pasignation view
    
      public function fetch_vendors($limit, $start) {
+
+     	$this->db->select('*');
+		$this->db->from('vendors');
+		$this->db->join('users', 'users.id = vendors.user_id');
+
         $this->db->limit($limit, $start);
-        $query = $this->db->get("vendors");
+        $query = $this->db->get();
  
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {

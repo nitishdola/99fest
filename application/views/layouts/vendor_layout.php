@@ -21,6 +21,8 @@
 
         <script type="text/javascript" src="<?php echo asset_url(); ?>js/plugins/bootstrap/multiselect/bootstrap-select.js"></script>       
 
+        <script src="<?php echo asset_url(); ?>sweetalert/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo asset_url(); ?>sweetalert/sweetalert.css">
                                         
     </head>
     <body>
@@ -99,7 +101,11 @@
         
         <!-- END PLUGINS -->
 
-        <!-- START THIS PAGE PLUGINS-->        
+        <!-- START THIS PAGE PLUGINS-->   
+        <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+        <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
+
+
         <script type='text/javascript' src='<?php echo asset_url(); ?>admin/js/plugins/icheck/icheck.min.js'></script>        
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/scrolltotop/scrolltopcontrol.js"></script>

@@ -90,8 +90,6 @@ class Users extends MY_Controller {
 	* Register a vendor
 	*/
 	public function do_vendor_register() { 
-
-	
 		//redirect if not admin
 		if(!$this->ion_auth->is_admin()) {
 			redirect('users/login');
@@ -106,9 +104,7 @@ class Users extends MY_Controller {
 		$config = array(
 			'upload_path' => 'uploads/vendors/logos',
 			'allowed_types' => 'gif|jpg|png|jpeg',
-			'max_size' => 1024,
-			'max_width' => 1920,
-			'max_height' => 1080
+			'max_size' => 2048,
 		);
 		$this->load->library('upload', $config);
 		
@@ -118,34 +114,65 @@ class Users extends MY_Controller {
 		}
 
 		//Process the registration form 
-
 		if($this->form_validation->run() == TRUE) { 
-			
-		
+
 			$logo_path = '';
 			//check if file is set and uploaded 
 			if($check_file_upload) {
 				if($this->upload->do_upload('logo')) {
-					$upload_data = array('upload_data' => $this->upload->data());
-					$logo_path = $upload_data['upload_data']['file_name'];
+
+					$upload_data = $this->upload->data();
+					$new_file_name = $upload_data['raw_name'].md5(time()).'_280x281'.$upload_data['file_ext'];
+
+					$image_config["image_library"]	= "gd2";
+					$image_config["source_image"] 	= $upload_data["full_path"];
+					$image_config['create_thumb'] 	= FALSE;
+					$image_config['maintain_ratio'] = TRUE;
+					$image_config['new_image'] 		= $upload_data["file_path"] . $new_file_name;
+					$image_config['quality'] 		= "100%";
+					$image_config['width'] 			= 280;
+					$image_config['height'] 		= 281;
+					$dim = (intval($upload_data["image_width"]) / intval($upload_data["image_height"])) - ($image_config['width'] / $image_config['height']);
+					$image_config['master_dim'] 	= ($dim > 0)? "height" : "width";
+					 
+					$this->load->library('image_lib');
+					$this->image_lib->initialize($image_config);
+					 
+					if(!$this->image_lib->resize()){ //Resize image
+					    $this->session->set_flashdata('error_message', 'Unable to resize the logo !');
+						redirect('vendors/add');
+					}		
+					
+					$logo_path = $new_file_name;
 				}else{
 					$error = array('error' => $this->upload->display_errors());
-					var_dump($error); exit();
-					//redirect('vendors/add');
+					$this->session->set_flashdata('error_message', $error['error']);
+					redirect('vendors/add');
 				}
+			}else{
+				$error = array('error' => 'Logo Upload Erro !');
+				$this->session->set_flashdata('error_message', $error['error']);
+				redirect('vendors/add');
 			}
          
-//for featured image
+			//upload and crop featured image
+			$featured_image_name 		= '';
+			$featured_image_name 		= strtolower($this->input->post('slug'));
+			$featured_image_info 		= new SplFileInfo($_FILES['featuredimage']['name']);
+			$featured_image_extension 	= $featured_image_info->getExtension();
 
 
-         $config2 = array(
-			'upload_path' => 'uploads/vendors/images',
-			'allowed_types' => 'gif|jpg|jpeg|png',
-			'max_size' => 1024,
-			'max_width' => 1920,
-			'max_height' => 1080
-		);
-		$this->load->library('upload', $config2);
+			$featured_image_name .= '_'.md5(time()).'.'.$featured_image_extension;
+	        $config2 = array(
+				'upload_path' 	=> 'uploads/vendors/images',
+				'allowed_types' => 'gif|jpg|jpeg|png',
+				'file_name'		=> $featured_image_name,
+				'max_size' 		=> 2048,
+			);
+
+
+			$this->upload->initialize($config2);
+			$this->load->library('upload', $config2);
 
 			$featured_image_path = '';
 			//check if file is set and uploaded 
@@ -157,14 +184,59 @@ class Users extends MY_Controller {
 
 			if($check_featured_file_upload) {
 				if($this->upload->do_upload('featuredimage')) {
-					$upload_data 			= array('upload_data' => $this->upload->data());
-					$featured_image_path 	= $upload_data['upload_data']['file_name'];
+					$new_file_name = '';
+					$upload_data = $this->upload->data();
+					$new_file_name = $featured_image_name;
+
+					$image_config["image_library"] = "gd2";
+					$image_config["source_image"] = $upload_data["full_path"];
+					$image_config['create_thumb'] = FALSE;
+					$image_config['maintain_ratio'] = TRUE;
+					$image_config['new_image'] = $upload_data["file_path"] . $new_file_name;
+					$image_config['quality'] = "100%";
+					$image_config['encrypt_name'] = TRUE;
+            		$image_config['remove_spaces'] = TRUE;
+            		$image_config['width'] = 1900;
+					$image_config['height'] = 600;
+					
+
+
+					$dim = (intval($upload_data["image_width"]) / intval($upload_data["image_height"])) - ($image_config['width'] / $image_config['height']);
+					$image_config['master_dim'] = ($dim > 0)? "height" : "width";
+					 
+					$this->load->library('image_lib');
+					$this->image_lib->initialize($image_config);
+					 
+					if(!$this->image_lib->resize()){ //Resize image
+					    //redirect("errorhandler"); //If error, redirect to an error page
+					}else{
+						//var_dump($upload_data); echo 'LLLL'; exit;
+						//echo 'yes';
+						$image_config['image_library'] 	= 'gd2';
+						$image_config['source_image'] 	= $featured_image_name;
+						$image_config['new_image'] 		= $featured_image_name;
+						$image_config['quality'] 		= "100%";
+						$image_config['maintain_ratio'] = FALSE;
+						$image_config['width'] 			= 1900;
+						$image_config['height'] 		= 600;
+
+						 
+						//$this->image_lib->clear();
+						$this->image_lib->initialize($image_config); 
+						 
+						if (!$this->image_lib->crop()){
+							$this->session->set_flashdata('error_message', 'Unable to crop featured image');
+							redirect('vendors/add');
+						}
+					 }
+					 $featured_image_path 	= $featured_image_name;
 				}else{
 					$error = array('error' => $this->upload->display_errors());
-					//var_dump($error);
+					$this->session->set_flashdata('error_message', $error['error']);
 					redirect('vendors/add');
 				}
 			}else{
+				$this->session->set_flashdata('error_message', 'Unable to upload featured image');
 				redirect('vendors/add');
 			}
 
@@ -178,7 +250,7 @@ class Users extends MY_Controller {
 			
 			$user_id = $this->do_registration($this->input->post('email'), $vendor_password, $group_id);
 			//If user is created, insert the other details
-		
+			
 			if($user_id) {			
 				
 				$vendor_data = array(
@@ -196,43 +268,26 @@ class Users extends MY_Controller {
 					'slug' 				=> strtolower($this->input->post('slug')),
 					'about' 			=> $this->input->post('about'),
 					'featured_img' 	    => $featured_image_path,
-
-
 					'added_on' 			=> date('Y-m-d H:i:s'),
 					
 				);
 
-
 				if($this->db->insert('vendors', $vendor_data)) {
-					$vendor_id = $this->db->insert_id(); //get the vendor id
-
-				
-
-					//If vendor id is generated, add category details
-					if( $vendor_id) {
-						$categories = $this->input->post('category_id'); //get categories selected
-					
-						$vendor_category_data['vendor_id'] = $vendor_id;
-
-						foreach( $categories as $category ) {
-							// echo 'cccc'.$vendor_id;
-
-							$vendor_category_data['vendor_category_id'] = $category;
-
-							$this->db->insert('vendors_categories', $vendor_category_data);
-						}
-
-						//exit;
-
-					}
-					//if the profile has been created, log in the user and redirect to admin page
-					redirect('admin');
+					$this->session->set_flashdata('success_message', 'Vendor added successfully');
+					redirect('vendors/add');
+				}else{
+					$this->session->set_flashdata('error_message', 'Unable to add vendor !');
+					redirect('vendors/add');
 				}
+
+
+			}else{
+				$this->session->set_flashdata('error_message', 'Unable to add vendor user !');
+				redirect('vendors/add');
 			}	
 		}else{
-            
-			//redirect('vendors/add');
-			exit;
+			$this->session->set_flashdata('error_message', 'Error submitting form !');
+			redirect('vendors/add');
 		}
 	}
 
@@ -270,9 +325,6 @@ class Users extends MY_Controller {
 		if(isset($_FILES['logo']['error']) && $_FILES['logo']['error'] != 4) { //check if not UPLOAD_ERR_NO_FILE
 			$check_file_upload = TRUE;
 		}
-
-		
-		
 		//Process the registration form 
 
 		if($this->form_validation->run() == TRUE) { 

@@ -16,10 +16,6 @@ class Vendor_stores extends MY_Controller {
 		$this->load->model('catering_categories_model');
 	
 	}
-
-	
-
-
 	public function add_service()
 	{
 		//redirect if not logged in
@@ -31,16 +27,8 @@ class Vendor_stores extends MY_Controller {
 		$user_id = $this->ion_auth->get_user_id();
 		$vendor_details = $this->vendor_model->get_with_user_details($user_id);
 		$vendor_id=$vendor_details[0]->vendor_id;
-		//dump($vendor_details);
-		
-		
-
-		
-		if($user_id) {	
-
-		  	
-				
-				$service_data = array(
+		if($user_id) {
+			$service_data = array(
 					
 					'vendor_id' 		  => $vendor_id,
 				
@@ -241,10 +229,14 @@ class Vendor_stores extends MY_Controller {
 		$this->data['cateror_service_types'] = $cateror_service_types;
 		$vendor_details = $this->vendor_model->get_with_user_details($user_id);
 		$vendor_id=$vendor_details[0]->vendor_id;
-		dump($_POST); 
 
 		if($this->input->post('addSubmit')) {
 
+			$website = '';
+
+			if(isset($this->input->post('website')) && $this->input->post('website') != '') {
+				$website = $this->input->post('website');
+			}
 			
 
 			$types_of_function = implode(',',$this->input->post('function'));
@@ -278,15 +270,13 @@ class Vendor_stores extends MY_Controller {
 				'outside_decoration' 	    => $this->input->post('outsidedecoration'),
 				'distance_airport' 	        => $this->input->post('airport'),
 				'distance_bus_stand' 	    => $this->input->post('bus_stand'),
-				'website' 	                => $this->input->post('website'),
+				'website' 	                => $website,
  
 			);
 
 			if(($this->db->insert('vendor_venue_information', $category_data) ))
 			{
-				//if(foreach($item_name_,))
-					if( $vendor_id) {
-						//dump($_POST);
+				if( $vendor_id) {
 									$counter = $this->input->post('counter');
 						            
 						           //dump($item_name);
