@@ -66,5 +66,10 @@ $route['about']			= 'pages/about';
 $route['team']			= 'pages/team';
 $route['contact']		= 'pages/contact';
 
+$route['vendors']		= 'vendors/view_all_vendors';
+$route['venue/(:any)']	= 'vendors/venue_details/$1';
+$route['catering/(:any)']	= 'vendors/catering_details/$1';
+$route['photographer/(:any)']	= 'vendors/studio_details/$1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

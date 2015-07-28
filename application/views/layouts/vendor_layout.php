@@ -2,7 +2,7 @@
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>Atlant - Responsive Bootstrap Admin Template</title>            
+        <title>99Fest : Vendor Admin</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,6 +13,8 @@
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo asset_url(); ?>admin/css/theme-default.css"/>
         <link href="<?php echo asset_url(); ?>css/bootstrap/multiselect/bootstrap-select.css" rel="stylesheet">
+        <link href="<?php echo asset_url(); ?>css/style.css" rel="stylesheet">
+        
         <!-- EOF CSS INCLUDE -->    
 
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery.min.js"></script>
@@ -30,62 +32,8 @@
         <div class="page-container">
             
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar">
-                <!-- START X-NAVIGATION -->
-                <ul class="x-navigation">
-                    <li class="xn-logo">
-                        <a href="index.html">ATLANT</a>
-                        <a href="#" class="x-navigation-control"></a>
-                    </li>
-                    <li class="xn-profile">
-                        <a href="#" class="profile-mini">
-                            <img src="assets/images/users/avatar.jpg" alt="John Doe"/>
-                        </a>
-                        <div class="profile">
-                            <div class="profile-image">
-                                <img src="<?php echo asset_url(); ?>admin/assets/images/users/avatar.jpg" alt="John Doe"/>
-                            </div>
-                            <div class="profile-data">
-                                <div class="profile-data-name"><?php echo $display_name; ?></div>
-                                <div class="profile-data-title"><?php if($is_admin): echo 'Administrator'; endif; ?></div>
-                            </div>
-                            <div class="profile-controls">
-                                <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
-                                <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
-                            </div>
-                        </div>                                                                        
-                    </li>
-                    <li class="xn-title">Navigation</li>
-                    <li class="active">
-                        <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
-                    </li>                    
-                    <li class="xn-openable">
-                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Profile</span></a>
-                        <ul>
-                            <li>
-                                <?php echo anchor('#', '<span class="fa fa-files-o"></span> <span class="xn-text">View All Messages', 'class="no-class"') ?>
-                            </li>
-                            <li>
-                                <?php echo anchor('vendors/profile', '<span class="fa fa-files-o"></span> <span class="xn-text">My Profile', 'class="no-class"') ?>
-                            </li>
-                            
-                        </ul>
-                    </li>
-
-                    <li class="xn-openable">
-                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Images</span></a>
-                        <ul>
-                            <li>
-                                <?php echo anchor('vendors/view_images', '<span class="fa fa-files-o"></span> <span class="xn-text">View', 'class="no-class"') ?>
-                            </li>
-                            <li>
-                                <?php echo anchor('vendors/upload_image', '<span class="fa fa-files-o"></span> <span class="xn-text">Upload Image', 'class="no-class"') ?>
-                            </li>
-                        </ul>
-                    </li>
-                                                        
-                </ul>
-                <!-- END X-NAVIGATION -->
+            <div class="page-sidebar" style="background:#33414E">
+                <?php echo $this->load->view('common/admin/vendor_x_navigation'); ?>
             </div>
             <!-- END PAGE SIDEBAR -->
 
@@ -94,6 +42,27 @@
             <div class="main">
                 <?php echo $this->load->view($subview); ?>
             </div>
+
+            <!-- MESSAGE BOX-->
+            <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+                <div class="mb-container">
+                    <div class="mb-middle">
+                        <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                        <div class="mb-content">
+                            <p>Are you sure you want to log out?</p>                    
+                            <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                        </div>
+                        <div class="mb-footer">
+                            <div class="pull-right">
+                                <a href="<?= base_url(); ?>logout" class="btn btn-success btn-lg">Yes</a>
+                                
+                                <button class="btn btn-default btn-lg mb-control-close">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MESSAGE BOX-->
 
 
             <!-- START SCRIPTS -->

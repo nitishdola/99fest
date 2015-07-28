@@ -4925,6 +4925,7 @@ td.dataTables_empty {
   -o-transition: all 400ms ease;
   transition: all 400ms ease;
   z-index: 3;
+  display: none;
 }
 .theme-settings .ts-button {
   position: absolute;

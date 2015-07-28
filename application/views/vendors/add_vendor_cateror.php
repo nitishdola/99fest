@@ -109,7 +109,8 @@ $(document).ready(function() {
                             </div>
                             <small class="text-muted">John Doe, 21 Sep 2014 /</small><small class="text-success"> Done</small>                                </a>                            </div>     
                     <div class="panel-footer text-center">
-                        <a href="pages-tasks.html">Show all tasks</a>                            </div>                            
+                        <a href="pages-tasks.html">Show all tasks</a>                            
+                    </div>                            
                 </div>                        
             </li>
             <!-- END TASKS -->
@@ -120,7 +121,7 @@ $(document).ready(function() {
         <ul class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><a href="#">Service</a></li>
-            <li class="active"><a href="#"> Cateror Information</a></li>
+            <li class="active"><a href="#"> Caterer Information</a></li>
         </ul>
         <!-- END BREADCRUMB -->
         
@@ -136,22 +137,15 @@ $(document).ready(function() {
                     ?>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Add Cateror Information</strong> </h3>
-                            <ul class="panel-controls">
-                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-                            </ul>
+                            <h3 class="panel-title"><strong>Add Caterer Information</strong> </h3>
+                           
                         </div>
-                        <div class="panel-body">
-                      
-                       
-                        
-                        
-                        </div>
+                     
                         
                         <div class="panel-body">                                                                        
                             
                             <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Name</label>
+                                <label class="col-md-3 col-xs-12 control-label">Caterer Name</label>
                                 <div class="col-md-6 col-xs-12">                                            
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
@@ -159,7 +153,7 @@ $(document).ready(function() {
                                             $cateror_data = array(
                                               'name'        => 'name',
                                               'id'          => 'name',
-                                              'placeholder' => 'Enter vendor name',
+                                              'placeholder' => 'Enter Cateror name',
                                               'class'       => 'form-control',
                                               'onkeyup'=>'copy_data(this)',
                                             );
@@ -169,6 +163,27 @@ $(document).ready(function() {
                                     </div>                                            
                                     <span class="help-block"></span>                                        </div>
                             </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Description About Caterer</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <?php 
+                                            $description_data = array(
+                                              'name'        => 'cateror_description',
+                                              'rows'        => '5',
+                                              'id'          => 'cateror_description',
+                                              'placeholder' => 'Description',
+                                              'class'       => 'form-control',
+                                            );
+
+                                        ?>
+                                    <?php echo form_textarea($description_data);?>
+                                    <span class="help-block"></span>                                        
+                                </div>
+                            </div>
+
+
                               <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Category For</label>
                                                                <div class="col-md-6 col-xs-12">   
@@ -189,6 +204,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
 
+
                                            
                            
 
@@ -208,7 +224,7 @@ $(document).ready(function() {
                                         ?>
                                         <?php echo form_input($cateror_area_data);?>
                                     </div>                                            
-                                    <span class="help-block">Type contact number</span>                                        
+                                    <span class="help-block"></span>                                        
                                 </div>
                             </div>
 
@@ -377,46 +393,157 @@ $(document).ready(function() {
                                             
                                 </div>
                                 </div>
-                            
 
-
-
-                            
-
-                            <div class="form-group">
-                               <a href="#" id="addlink">Add new</a>
-                               <a href="#" id="removelink" style="display:none">Remove</a>
-                            </div>
-                      
-            
-                           
-                            
-                            <!--
-                            <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Checkbox</label>
-                                <div class="col-md-6 col-xs-12">                                                                                                                                        
-                                    <label class="check"><input type="checkbox" class="icheckbox" checked="checked"/> Checkbox title</label>
-                                    <span class="help-block">Checkbox sample, easy to use</span>                                        </div>
-                            </div>
-                            -->
                         </div>
+
+                        <div class="form-group">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-3">
+                                    <button id="addlink" class="btn btn-primary btn-min">Add New</button>
+                                </div>
+                                <div class="col-md-5">
+                                    <button id="removelink" style="display:none" class="btn btn-danger btn-small">Remove</button>
+                                    
+                                </div>
+                            </div>
                        
-                                    <label class="col-md-2 col-xs-3 control-label"></label>
-                                    <div class="col-md-2" id="item_price2_1">
+                        <label class="col-md-2 col-xs-3 control-label"></label>
+                        <div class="col-md-2" id="item_price2_1">
+                            <?php 
+                                $price3_data = array(
+                                  'name'        => 'counter',
+                                  'type'        => 'hidden',
+                                  'id'          => 'vendor_menu_counter',
+                                  'value' => 3,
+                                  'class'       => 'form-control',
+                                );
+
+                                ?>
+                            <?php echo form_input($price3_data);?>
+                        </div>
+
+                        <div style="clear:both;"></div>
+                        <div style="background:#e8e8e8; padding:10px;">
+                                <h3>Add special offers(upto three)</h3>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
                                         <?php 
-                                            $price3_data = array(
-                                              'name'        => 'counter',
-                                              'type'        => 'hidden',
-                                              'id'          => 'vendor_menu_counter',
-                                              'value' => 3,
-                                              'class'       => 'form-control',
-                                            );
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title1',
+                                                  'id'          => 'offer_title1',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
 
                                             ?>
-                                        <?php echo form_input($price3_data);?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
                                     </div>
-                                            
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details1',
+                                                  'id'          => 'offer_details1',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title2',
+                                                  'id'          => 'offer_title2',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                    'name'        => 'offer_details2',
+                                                    'id'          => 'offer_details2',
+                                                    'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                    'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title3',
+                                                  'id'          => 'offer_title3',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details3',
+                                                  'id'          => 'offer_details3',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                                            
+                    </div>
                                 </div>
 
                         <div class="panel-footer">

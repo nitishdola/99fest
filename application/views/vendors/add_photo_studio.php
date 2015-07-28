@@ -159,9 +159,8 @@ $(document).ready(function() {
                                             $name_data = array(
                                               'name'        => 'name',
                                               'id'          => 'name',
-                                              'placeholder' => 'Enter vendor name',
+                                              'placeholder' => 'Enter studio name',
                                               'class'       => 'form-control',
-                                              'onkeyup'=>'copy_data(this)',
                                             );
 
                                         ?>
@@ -169,6 +168,26 @@ $(document).ready(function() {
                                     </div>                                            
                                     <span class="help-block"></span>                                        </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Descritpion</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <?php 
+                                            $description_data = array(
+                                              'name'        => 'studio_description',
+                                              'rows'        => '5',
+                                              'id'          => 'studio_description',
+                                              'placeholder' => 'Enter Descritpion',
+                                              'class'       => 'form-control',
+                                            );
+
+                                        ?>
+                                    <?php echo form_textarea($description_data);?>
+                                    <span class="help-block"></span>                                        
+                                </div>
+                            </div>
+
+
                                <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Address</label>
                                 <div class="col-md-6 col-xs-12">
@@ -197,9 +216,9 @@ $(document).ready(function() {
                                             $contact_data = array(
                                               'name'        => 'contact_number',
                                               'id'          => 'contact_number',
-                                              'placeholder' => 'Enter vendor name',
+                                              'placeholder' => 'Enter contact number',
                                               'class'       => 'form-control',
-                                              'onkeyup'=>'copy_data(this)',
+                                             
                                             );
 
                                         ?>
@@ -225,7 +244,7 @@ $(document).ready(function() {
                                         ?>
                                         <?php echo form_input($email_data);?>
                                     </div>                                            
-                                    <span class="help-block">Type a valid email id. <b>This email id will be used as username</b></span>                                        
+                                    <span class="help-block"></span>                                        
                                 </div>
                             </div>
 
@@ -250,25 +269,22 @@ $(document).ready(function() {
                                           
                                      
                             <!-- checbox function is not working-->
-                               <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Types Of function</label>
                                 <div class="col-md-6 col-xs-12">     
                                                                                                                    
-                           <?php foreach($cateror_service_types as $k => $v){ ?>  
-                                           <div class="col-md-7">                                    
-                                            <label class="check"><input type="checkbox"  name="function[]"  value='<?php echo ($v->name); ?>' class="icheckbox"/> <?php echo ($v->name); ?></label>
-                                                                                      
+                                    <?php foreach($cateror_service_types as $k => $v){ ?>  
+                                       <div class="col-md-7">                                    
+                                            <label class="check"><input type="checkbox"  name="function[]"  value='<?php echo ($v->name); ?>' class="icheckbox"/> <?php echo ($v->name); ?></label>                                       
                                         </div>
-                                         <?php } ?>
-                                          
-                                          
-                                     
-
+                                     <?php } ?>
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
-                              <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Time Taken </label>
+
+
+                            <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Product Delivery Time</label>
                                 <div class="col-md-6 col-xs-12">                                            
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
@@ -276,9 +292,8 @@ $(document).ready(function() {
                                             $time_data = array(
                                               'name'        => 'time',
                                               'id'          => 'time',
-                                              'placeholder' => 'Enter vendor name',
+                                              'placeholder' => 'In 2-8 weeks',
                                               'class'       => 'form-control',
-                                              'onkeyup'=>'copy_data(this)',
                                             );
 
                                         ?>
@@ -288,69 +303,401 @@ $(document).ready(function() {
                                  </div>
                             </div>
 
-                                 <div class="form-group">
-                                 <label class="col-md-3 col-xs-12 control-label">Cost per Picture</label>
-                                 <div class="col-md-6 col-xs-12">                                            
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                        <?php 
-                                            $cost_picture = array(
-                                              'name'        => 'cost_picture',
-                                              'id'          => 'cost_picture',
-                                              'placeholder' => 'Enter cost',
-                                              'class'       => 'form-control',
-                                              'onkeyup'=>'copy_data(this)',
-                                            );
+                            <div style="background:#e8e8e8; padding:10px;">
+                                <h3>Add special offers(upto three)</h3>
 
-                                        ?>
-                                        <?php echo form_input($cost_picture);?>
-                                    </div>                                            
-                                    <span class="help-block"></span>                                       
-                                 </div>
-                            </div>
-
-                             <div class="form-group">
-                                 <label class="col-md-3 col-xs-12 control-label">Cost per Video</label>
-                                 <div class="col-md-6 col-xs-12">                                            
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                        <?php 
-                                            $cost_video = array(
-                                              'name'        => 'cost_video',
-                                              'id'          => 'cost_video',
-                                              'placeholder' => 'Enter cost',
-                                              'class'       => 'form-control',
-                                              'onkeyup'=>'copy_data(this)',
-                                            );
-
-                                        ?>
-                                        <?php echo form_input($cost_video);?>
-                                    </div>                                            
-                                    <span class="help-block"></span>                                       
-                                 </div>
-                            </div>
-                        
-
-                                           
-                         
                                 <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Upload Image</label>
-                                <div class="col-md-6 col-xs-12">                                                                                                                                     
-                                    <?php 
-                                            $file_data = array(
-                                              'name'        => 'logo',
-                                              'type'        => 'file',
-                                              'id'          => 'logo',
-                                              'title'       => 'Browse File',
-                                            );
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title1',
+                                                  'id'          => 'offer_title1',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
 
-                                        ?>
-                                        <?php echo form_input($file_data);?>
-                                    <span class="help-block"></span>                                        
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details1',
+                                                  'id'          => 'offer_details1',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title2',
+                                                  'id'          => 'offer_title2',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                    'name'        => 'offer_details2',
+                                                    'id'          => 'offer_details2',
+                                                    'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                    'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title3',
+                                                  'id'          => 'offer_title3',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details3',
+                                                  'id'          => 'offer_details3',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                  'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div  id="equipments">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Our Equipments</label>
+                                    <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $equip_data = array(
+                                                  'name'        => 'equipment_1',
+                                                  'id'          => 'equipment_1',
+                                                  'placeholder' => 'Equipments',
+                                                  'class'       => 'form-control',
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($equip_data);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button id="addEquip" class="btn btn-primary btn-min">Add More Equipment</button>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button id="removeEquip" style="display:none" class="btn btn-danger btn-small">Remove</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                            var equip_counter = 1;
+                            $('#addEquip').click(function(e) {
+
+                                e.preventDefault();
+                                equip_counter++;
+                                if(equip_counter > 1) {
+                                    $('#removeEquip').show();
+                                }
+
+
+                                $('#equip_counter').val(equip_counter);
+                                var html = '';
+
+                                html += '<div class="form-group" id="e_'+equip_counter+'">';
+                                html += '<label class="col-md-3 col-xs-12 control-label">Our Equipments</label>';
+                                html += '<div class="col-md-6 col-xs-12">';                                           
+                                html += '<div class="input-group">';
+                                html += '<span class="input-group-addon"><span class="fa fa-pencil"></span></span>';
+                                html += '<input type="text" name="equipment_'+equip_counter+'"  placeholder="Equipments" class="form-control"  />';
+                                html += '</div>';                                         
+                                html += '<span class="help-block"></span>';                                     
+                                html += '</div>';
+                                html += '</div>';
+                
+
+                                $('#equipments').append(html);
+
+                            });
+
+                            $('#removeEquip').click(function(e) {
+                                e.preventDefault();
+                                $('#e_'+equip_counter).remove();
+                                equip_counter--;
+                                if(equip_counter < 2) {
+                                    $('#removeEquip').hide();
+                                }
+                            });
+                            </script>
+
+
+                            <div style="background:#e8e8e8; padding:20px">
+                                <p><strong>For small events & confrences(50-150 photographs + 2-4 DVD’s)</strong></p>
+                                <label class="check"><input type="checkbox" id="contract_small" name="contract_small" value="1">Check if charged on contract basis</label>                                       
+                                <div class="form-group">
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Picture</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_picture = array(
+                                                  'name'        => 'cost_picture_small',
+                                                  'id'          => 'cost_picture_small',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                 
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_picture);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+
+
+                                 <div class="form-group">
+                                
+
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Video</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_video = array(
+                                                  'name'        => 'cost_video_small',
+                                                  'id'          => 'cost_video_small',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_video);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+
+                                <script>
+
+                                    $('#contract_small').click(function() {
+                                        if($('#contract_small').is(":checked")) {
+                                            $('#cost_picture_small').prop('readonly', true);
+                                            $('#cost_video_small').prop('readonly', true);
+                                        }else{
+                                            $('#cost_picture_small').prop('readonly', false);
+                                            $('#cost_video_small').prop('readonly', false);
+                                        }
+                                    });
+                                </script>
+
+                            </div>
+
+                            <div style="background:#e8e8e8; padding:20px">
+
+                            <p><strong>For medium size events(Marriages, reception, Celebrations)</strong></p>
+                            <label class="check"><input type="checkbox" id="contract_medium" value="1" name="contract_medium">Check if charged on contract basis</label>                                       
+
+                                <div class="form-group">
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Picture</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_picture = array(
+                                                  'name'        => 'cost_picture_medium',
+                                                  'id'          => 'cost_picture_medium',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                 
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_picture);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+                                 <div class="form-group">
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Video</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_video = array(
+                                                  'name'        => 'cost_video_medium',
+                                                  'id'          => 'cost_video_medium',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_video);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+                                <script>
+
+                                    $('#contract_medium').click(function() {
+                                        if($('#contract_medium').is(":checked")) {
+                                            $('#cost_picture_medium').prop('readonly', true);
+                                            $('#cost_video_medium').prop('readonly', true);
+                                        }else{
+                                            $('#cost_picture_medium').prop('readonly', false);
+                                            $('#cost_video_medium').prop('readonly', false);
+                                        }
+                                    });
+                                </script>
+
+                            </div>
+
+                            <div style="background:#e8e8e8; padding:20px">
+                            <p><strong>For large events(Carnivals or fests)</strong></p>
+                                <label class="check"><input type="checkbox" id="contract_large" value="1" name="contract_large">Check if charged on contract basis</label>                                       
+                                
+                                <div class="form-group">
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Picture</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_picture = array(
+                                                  'name'        => 'cost_picture_large',
+                                                  'id'          => 'cost_picture_large',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_picture);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+                                 <div class="form-group">
+                                     <label class="col-md-3 col-xs-12 control-label">Cost per Video</label>
+                                     <div class="col-md-6 col-xs-12">                                            
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                            <?php 
+                                                $cost_video = array(
+                                                  'name'        => 'cost_video_large',
+                                                  'id'          => 'cost_video_large',
+                                                  'placeholder' => 'Enter cost',
+                                                  'class'       => 'form-control',
+                                                  'onkeyup'=>'copy_data(this)',
+                                                );
+
+                                            ?>
+                                            <?php echo form_input($cost_video);?>
+                                        </div>                                            
+                                        <span class="help-block"></span>                                       
+                                     </div>
+                                </div>
+
+                                <script>
+
+                                    $('#contract_large').click(function() {
+                                        if($('#contract_large').is(":checked")) {
+                                            $('#cost_picture_large').prop('readonly', true);
+                                            $('#cost_video_large').prop('readonly', true);
+                                        }else{
+                                            $('#cost_picture_large').prop('readonly', false);
+                                            $('#cost_video_large').prop('readonly', false);
+                                        }
+                                    });
+                                </script>
+
+                            </div>
+                        
+
                         <div class="panel-footer">
+                            <?php 
+                                $equip_counter_data = array(
+                                    'name'        => 'equip_counter',
+                                    'id'          => 'equip_counter',
+                                    'type' => 'hidden',
+                                    'value' => 1,
+                                );
+
+                            ?>
+                            <?php echo form_input($equip_counter_data);?>
                             <button class="btn btn-default">Clear Form</button>                                    
                             <?php echo form_submit('addSubmit', 'Submit',"class='btn'"); ?>
                         </div>

@@ -176,7 +176,7 @@ public $data = array();
 		
 		$ip = $this->get_client_ip();
 		$city_name = '';
-		if($ip != 'UNKNOWN') {
+		if($ip != 'UNKNOWN' || $ip != '127.0.0.1') {
 			$key 		= $this->config->item('ip_info_key');
 			$ip_address = $ip;
 			$ip_info 	= get_geolocation($ip_address); 

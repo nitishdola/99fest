@@ -208,10 +208,9 @@ class Users extends MY_Controller {
 					$this->image_lib->initialize($image_config);
 					 
 					if(!$this->image_lib->resize()){ //Resize image
-					    //redirect("errorhandler"); //If error, redirect to an error page
+					    
 					}else{
-						//var_dump($upload_data); echo 'LLLL'; exit;
-						//echo 'yes';
+						
 						$image_config['image_library'] 	= 'gd2';
 						$image_config['source_image'] 	= $featured_image_name;
 						$image_config['new_image'] 		= $featured_image_name;
@@ -419,5 +418,19 @@ class Users extends MY_Controller {
         // Make sure you destory website session as well.
 		$this->ion_auth->logout();
 		redirect('home');
+	}
+
+	public function change_password() {
+		if ($this->authentication->is_signed_in())
+		{
+			$this->form_validation->set_rules($this->user_model->change_password_validation);
+		
+			//Process the form
+			if($this->form_validation->run() == TRUE) {
+				$account_details = $this->account_model->get_by_id($this->session->userdata('account_id'));
+			}
+
+			$this->load_view('users/change_password', 'customer');
+		}
 	}
 }

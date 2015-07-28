@@ -2771,4 +2771,15 @@ Vertival margin, padding
 }	
 .cat_selected{
 	border-bottom: 1px solid #E95F00;
-}				
+}		
+h3.profile-title{
+	font-size: 14px;
+	color: #2A64A4;
+	font-weight: bold;
+}		
+.profile-details{
+	border-bottom:1px dashed #555;
+}
+.profile-data .row{
+	margin-top: 10px;
+}

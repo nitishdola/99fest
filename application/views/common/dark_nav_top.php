@@ -58,6 +58,14 @@
                             ?>
                         </li>
                         <?php } ?>
+
+                        <?php  if(isset($is_vendor) && $is_vendor == TRUE){ ?>
+                        <li><?php echo anchor('/vendors/profile/', '<i class="fa fa-user"></i> Profile'); 
+                            ?>
+                        </li>
+                        <?php } ?>
+
+
                         <li><?php echo anchor('logout', '<i class="fa fa-sign-out"></i>Sign Out'); 
                             ?>
                         </li>

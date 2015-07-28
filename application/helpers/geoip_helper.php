@@ -64,16 +64,25 @@ function get_geolocation($ip) {
 	
 	$d = json_decode($d);
 
-	if(isset($d->error)) {
-		$d = file_get_contents("http://ip-api.com/json/$ip");
-		$stateName = json_decode($d)->regionName;
-		$cityName  = json_decode($d)->city;
-	}else{
-		$stateName = $d->stateprov;
-		$cityName  = $d->city;
+	$stateName = $cityName = '';
+
+	if(!empty($d)) {
+		if(isset($d->error)) {
+			$d = file_get_contents("http://ip-api.com/json/$ip");
+			if(isset(json_decode($d)->regionName)) {
+				$stateName = json_decode($d)->regionName;
+			}
+			if(isset(json_decode($d)->city)) {
+				$cityName  = json_decode($d)->city;
+			}
+		}else{
+			$stateName = $d->stateprov;
+			$cityName  = $d->city;
+		}
+		//Return the data as an array
+		return array('ip'=>$ip,'state'=>$stateName , 'city'=>$cityName);
 	}
-	//Return the data as an array
-	return array('ip'=>$ip,'state'=>$stateName , 'city'=>$cityName);
+	
 	}
 }
 /* End of file geoip_helper.php */

@@ -123,18 +123,11 @@
                     <?php 
                     $form_attributes = array('class' => 'form-horizontal', 'id' => 'vendoraddform');  
                     echo form_open_multipart("vendor_stores/register_venue_information", $form_attributes);
-                           
-
                     ?>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><strong>Add Venue Information</strong> </h3>
-                            <ul class="panel-controls">
-                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-                            </ul>
                         </div>
-                       
-                        
                         <div class="panel-body">                                                                        
                             
                             <div class="form-group">
@@ -217,7 +210,7 @@
                                 </div>
                             </div>
 
-                                <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Capacity</label>
                                 <div class="col-md-6 col-xs-12">
                                     <?php 
@@ -236,22 +229,137 @@
                                 </div>
                             </div>
 
+                            <div style="background:#e8e8e8; padding:10px;">
+                                <h3>Add special offers(upto three)</h3>
 
-                               <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Venue Types</label>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title1',
+                                                  'id'          => 'offer_title1',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details1',
+                                                  'id'          => 'offer_details1',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title2',
+                                                  'id'          => 'offer_title2',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                    'name'        => 'offer_details2',
+                                                    'id'          => 'offer_details2',
+                                                    'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                    'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer title</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date = array(
+                                                  'name'        => 'offer_title3',
+                                                  'id'          => 'offer_title3',
+                                                  'placeholder' => 'Offer title eg B’day Parties!',
+                                                  'class'       => 'form-control',
+                                                  
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_input($offer_date);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Special Offer Details</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <?php 
+                                                 $offer_date_details = array(
+                                                  'name'        => 'offer_details3',
+                                                  'id'          => 'offer_details3',
+                                                  'placeholder' => 'eg Starting from Rs. 450 per person. Including catering & decorations services.',
+                                                  'class'       => 'form-control',
+                                                    'rows'      => 3
+                                                );
+
+
+                                            ?>
+                                        <?php echo form_textarea($offer_date_details);?>
+                                        <span class="help-block"></span>                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Venue Type</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
-                                    <select name="venu_types" class="selectpicker">
-                                          <option value="Veg">Hotel</option>
-                                          <option value="Non Veg">Open Ground</option>
-                                           <option value="Both">Function Hall</option>
-                                           <option value="Non Veg">Restaurant</option>
-                                           <option value="Both">Auditorium</option>
-                                          
-                                          
-                                      </select>
+                                    
+                                    <?= form_dropdown('venue_type_id', $venue_types); ?>
+                 
                                     <span class="help-block"></span>                                        
                                 </div>
                             </div>
+
+
 
                              <div class="form-group" >                                        
                                         <label class="col-md-3 col-xs-12 control-label">Per Day</label>
@@ -275,7 +383,7 @@
                                     $perplate_data = array(
                                       'name'        => 'perplate',
                                       'id'          => 'perplate',
-                                      'placeholder' => '$',
+                                      'placeholder' => 'Rs.',
                                       'class'       => 'form-control',
                                     );
 
@@ -292,7 +400,7 @@
                                     $perhour_data = array(
                                       'name'        => 'perhour',
                                       'id'          => 'perhour',
-                                      'placeholder' => '$',
+                                      'placeholder' => 'Rs.',
                                       'class'       => 'form-control',
                                     );
 
@@ -307,7 +415,7 @@
                                     $hallrent_data = array(
                                       'name'        => 'hallrent',
                                       'id'          => 'hallrent',
-                                      'placeholder' => '$',
+                                      'placeholder' => 'Rs.',
                                       'class'       => 'form-control',
                                     );
 
@@ -335,26 +443,6 @@
                                 </div>
                             </div>
 
-
-                            <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Upload Diagrams</label>
-                                <div class="col-md-6 col-xs-12">                                                                                                                                     
-                                    <?php 
-                                            $file_data = array(
-                                              'name'        => 'logo',
-                                              'type'        => 'file',
-                                              'id'          => 'logo',
-                                              'title'       => 'Browse File',
-                                            );
-
-                                        ?>
-                                        <?php echo form_input($file_data);?>
-                                    <span class="help-block"></span>                                        
-                                </div>
-                            </div>
-                                         
-                                          
-                                     
                             <!-- checbox function is not working-->
                                <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Venue Suited For</label>
@@ -372,12 +460,14 @@
                             </div>
 
 
-                               <div class="form-group">
+
+
+                            <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Rooms</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
-                                    <select name="rooms" class="selectpicker">
-                                          <option value="0">Available</option>
-                                          <option value="1">Not Available</option>  
+                                    <select name="rooms">
+                                          <option value="1">Available</option>
+                                          <option value="0">Not Available</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -387,8 +477,8 @@
                                 <label class="col-md-3 col-xs-12 control-label">A/C</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
                                     <select name="ac" class="selectpicker">
-                                          <option value="0">Yes</option>
-                                          <option value="1">No</option>  
+                                          <option value="1">Yes</option>
+                                          <option value="0">No</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -397,11 +487,17 @@
                               <div class="form-group">
                                 <label class="col-md-3 col-xs-12 control-label">Parking</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
-                                    <select name="parking" class="selectpicker">
-                                          <option value="0">Yes</option>
-                                          <option value="1">No</option>  
-                                      </select>
-                                    <span class="help-block"></span>                                        
+                                    <?php 
+                                    $parking_date = array(
+                                      'name'        => 'parking',
+                                      'id'          => 'parking',
+                                      'placeholder' => 'eg Valet Parking',
+                                      'class'       => 'form-control',
+                                    );
+
+                                    ?>
+                                    <?php echo form_input($parking_date);?>
+                                    <span class="help-block">Parking capacity for number of <strong>cars</strong></span>                                        
                                 </div>
                             </div>
 
@@ -429,8 +525,8 @@
                                 <label class="col-md-3 col-xs-12 control-label">WiFi</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
                                     <select name="wifi" class="selectpicker">
-                                          <option value="0">Yes</option>
-                                          <option value="1">No</option>  
+                                          <option value="1">Yes</option>
+                                          <option value="0">No</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -440,8 +536,8 @@
                                 <label class="col-md-3 col-xs-12 control-label">Alcohol</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
                                     <select name="alcohol" class="selectpicker">
-                                          <option value="0">Yes</option>
-                                          <option value="1">No</option>  
+                                          <option value="1">Yes</option>
+                                          <option value="0">No</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -605,8 +701,8 @@
                                 <label class="col-md-3 col-xs-12 control-label">Outside Catering</label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
                                     <select name="outsidecatering" class="selectpicker">
-                                          <option value="0">Yes</option>
-                                          <option value="1">No</option>  
+                                          <option value="1">Yes</option>
+                                          <option value="0">No</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>
@@ -648,7 +744,7 @@
                                   <div class="col-md-6 col-xs-12">
                                     <?php 
                                              $cost_data = array(
-                                              'name'        => 'Cost',
+                                              'name'        => 'cost',
                                               'id'          => 'cost',
                                               'placeholder' => 'Enter Rate',
                                               'class'       => 'form-control',
@@ -667,8 +763,8 @@
                                 <label class="col-md-3 col-xs-12 control-label">Outside Decoration </label>
                                 <div class="col-md-6 col-xs-12">                                                                                            
                                     <select name="outsidedecoration" class="selectpicker">
-                                          <option value="0">Allowed</option>
-                                          <option value="1">Not Allowed</option>  
+                                          <option value="1">Allowed</option>
+                                          <option value="0">Not Allowed</option>  
                                       </select>
                                     <span class="help-block"></span>                                        
                                 </div>

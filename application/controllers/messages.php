@@ -91,6 +91,18 @@ class Messages extends MY_Controller {
 	}
 
 
+	public function sendmail() {
+		// the message
+		$msg = "First line of text\nSecond line of text";
+
+		// use wordwrap() if lines are longer than 70 characters
+		$msg = wordwrap($msg,70);
+
+		// send email
+		mail("nitish.dola@gmail.com","Sample Mail",$msg);
+	}
+
+
 
 
 

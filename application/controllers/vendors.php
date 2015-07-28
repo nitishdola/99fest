@@ -16,6 +16,21 @@ class Vendors extends MY_Controller {
 		$this->load->model('vendor_image_model');
         $this->load->model('catering_categories_model');
 		$this->load->helper("text");
+		
+		$this->load->model('vendor_venue_information_model');
+		$this->load->model('venue_type');
+		$this->load->model('venue_catering_menu_model');
+		$this->load->model('venue_special_offer_model');
+		$this->load->model('vendor_catering_service_information_model');
+
+		$this->load->model('cateror_menu_model');
+		$this->load->model('catering_special_offer_model');
+
+		$this->load->model('vendor_photo_studio_information_model');
+		$this->load->model('studio_equipment_model');
+		$this->load->model('studio_special_offer_model');
+
+
 	}
 	
 	/**
@@ -31,6 +46,8 @@ class Vendors extends MY_Controller {
 
 			$cities = $this->city_model->dropdown($value = 'name');
 			$this->data['cities'] = $cities;
+
+
 
 			$vendor_categories = $this->vendor_category_model->dropdown($value = 'name');
 			$this->data['vendor_categories'] = $vendor_categories;
@@ -343,33 +360,156 @@ function addevents() {
 
    //edit vendor profile
 	public function edit_vendor_profile() {
-//dump($_POST); exit;
+
+		$slug = strtolower(str_replace(' ','-', trim($this->input->post('name'))));
+
+
 		 $config = array(
-			'upload_path' => 'uploads/vendors/images',
-			'allowed_types' => 'gif|jpg|png',
+			'upload_path' => 'uploads/vendors/logos',
+			'allowed_types' => 'gif|jpg|png|jpeg',
 			'max_size' => 1024,
-			'max_width' => 1920,
-			'max_height' => 1080
 		);
 		$this->load->library('upload', $config);
 		$check_file_upload = FALSE;
 
-		if(isset($_FILES['new_avatar']['error']) && $_FILES['new_avatar']['error'] != 4) { //check if not UPLOAD_ERR_NO_FILE
+		if(isset($_FILES['new_avatar']['error']) && $_FILES['new_avatar']['error'] != 4 && $_FILES['new_avatar']['name'] != '') { //check if not UPLOAD_ERR_NO_FILE
 			$check_file_upload = TRUE;
 		}
 
-			$image_path = '';
-			if($check_file_upload) {
+		$image_path = '';
+		if($check_file_upload) {
+			if($this->upload->do_upload('new_avatar')) {
+
+				$upload_data = $this->upload->data();
+				$new_file_name = $upload_data['raw_name'].md5(time()).'_280x281'.$upload_data['file_ext'];
+
+				$image_config["image_library"]	= "gd2";
+				$image_config["source_image"] 	= $upload_data["full_path"];
+				$image_config['create_thumb'] 	= FALSE;
+				$image_config['maintain_ratio'] = TRUE;
+				$image_config['new_image'] 		= $upload_data["file_path"] . $new_file_name;
+				$image_config['quality'] 		= "100%";
+				$image_config['width'] 			= 280;
+				$image_config['height'] 		= 281;
+				$dim = (intval($upload_data["image_width"]) / intval($upload_data["image_height"])) - ($image_config['width'] / $image_config['height']);
+				$image_config['master_dim'] 	= ($dim > 0)? "height" : "width";
+				 
+				$this->load->library('image_lib');
+				$this->image_lib->initialize($image_config);
+				 
+				if(!$this->image_lib->resize()){ //Resize image
+				    $this->session->set_flashdata('error_message', 'Unable to resize the logo !');
+					redirect('vendors/profile/edit');
+				}		
+				
+				$logo_path = $new_file_name;
+			}else{
+				$error = array('error' => $this->upload->display_errors());
+				$this->session->set_flashdata('error_message', $error['error']);
+				redirect('vendors/profile/edit');
+			}
+			$image_path 	= $logo_path;
 			
+		}else{
+			if($this->input->post('logo_path') !== null) {
+				$image_path = $this->input->post('logo_path');
+			}
+		}	
+
+
+		//Featured Image Upload
+		//upload and crop featured image
+			$featured_image_name 		= '';
+
 			
-				if($this->upload->do_upload('new_avatar')) {
-					$upload_data 	= array('upload_data' => $this->upload->data());
-					$image_path 	= $upload_data['upload_data']['file_name'];
+
+			if($_FILES['featuredimage']['name'] != '') {
+				$featured_image_name 		= $slug;
+				$featured_image_info 		= new SplFileInfo($_FILES['featuredimage']['name']);
+				$featured_image_extension 	= $featured_image_info->getExtension();
+
+
+				$featured_image_name .= '_'.md5(time()).'.'.$featured_image_extension;
+		        $config2 = array(
+					'upload_path' 	=> 'uploads/vendors/images',
+					'allowed_types' => 'gif|jpg|jpeg|png',
+					'file_name'		=> $featured_image_name,
+					'max_size' 		=> 2048,
+				);
+
+
+				$this->upload->initialize($config2);
+				$this->load->library('upload', $config2);
+
+				$featured_image_path = '';
+				//check if file is set and uploaded 
+
+				$check_featured_file_upload = FALSE;
+				if(isset($_FILES['featuredimage']['error']) && $_FILES['featuredimage']['error'] != 4) { //check if not UPLOAD_ERR_NO_FILE
+					$check_featured_file_upload = TRUE;
+				}
+
+				if($check_featured_file_upload) {
+					if($this->upload->do_upload('featuredimage')) {
+						$new_file_name = '';
+						$upload_data = $this->upload->data();
+						$new_file_name = $featured_image_name;
+
+						$image_config["image_library"] = "gd2";
+						$image_config["source_image"] = $upload_data["full_path"];
+						$image_config['create_thumb'] = FALSE;
+						$image_config['maintain_ratio'] = TRUE;
+						$image_config['new_image'] = $upload_data["file_path"] . $new_file_name;
+						$image_config['quality'] = "100%";
+						$image_config['encrypt_name'] = TRUE;
+	            		$image_config['remove_spaces'] = TRUE;
+	            		$image_config['width'] = 1900;
+						$image_config['height'] = 600;
+						
+
+
+						$dim = (intval($upload_data["image_width"]) / intval($upload_data["image_height"])) - ($image_config['width'] / $image_config['height']);
+						$image_config['master_dim'] = ($dim > 0)? "height" : "width";
+						 
+						$this->load->library('image_lib');
+						$this->image_lib->initialize($image_config);
+						 
+						if(!$this->image_lib->resize()){ //Resize image
+						    
+						}else{
+							
+							$image_config['image_library'] 	= 'gd2';
+							$image_config['source_image'] 	= $featured_image_name;
+							$image_config['new_image'] 		= $featured_image_name;
+							$image_config['quality'] 		= "100%";
+							$image_config['maintain_ratio'] = FALSE;
+							$image_config['width'] 			= 1900;
+							$image_config['height'] 		= 600;
+
+							 
+							//$this->image_lib->clear();
+							$this->image_lib->initialize($image_config); 
+							 
+							if (!$this->image_lib->crop()){
+								$this->session->set_flashdata('error_message', 'Unable to crop featured image');
+								redirect('vendors/profile/edit');
+							}
+						 }
+						 $featured_image_path 	= $featured_image_name;
+					}else{
+						$error = array('error' => $this->upload->display_errors());
+						$this->session->set_flashdata('error_message', $error['error']);
+						redirect('vendors/profile/edit');
+					}
 				}else{
+					$this->session->set_flashdata('error_message', 'Unable to upload featured image');
 					redirect('vendors/profile/edit');
 				}
-			}	
-			
+			}else{
+				if($this->input->post('featured_img_old') !== null) {
+					$featured_image_path = $this->input->post('featured_img_old');
+				}
+			}
 			
 		
       // dump($_POST);
@@ -377,12 +517,14 @@ function addevents() {
 
 		$vendor_profile = array(
 			'name'            => $this->input->post('name'),
+			'slug'			  => $slug,	
 			'contact_number'  => $this->input->post('contact_number'),
 			'address'         => $this->input->post('address'),
 			'state_id'        => $this->input->post('state_id'),
 			'city_id'         => $this->input->post('city_id'),
 			'pin'             => $this->input->post('pin'),
 			'logo'            => $image_path,
+			'featured_img'	  => $featured_image_path,
 			
 		);
 
@@ -454,11 +596,6 @@ function addevents() {
 		    $this->load_view('vendors/add_vendor_service', 'vendor');
 	}
 
-
-
-   
-
-
     //catering form add by vendor
    
     public function vendor_catering($edit = NULL){
@@ -493,12 +630,19 @@ function addevents() {
 		if(!$this->check_vendor()) {
 			redirect('users/login');
 		}
-		          $cateror_service_types = $this->cateror_service_types_model->get_cateror_service();
-		          $this->data['cateror_service_types'] = $cateror_service_types;
-		          $cateror_catering_types = $this->catering_categories_model->get_catering_for();
-		          $this->data['cateror_catering_types'] = $cateror_catering_types;
-		       	  $this->load_view('vendors/add_venue_information', 'vendor');
-       }
+
+			$venue_types = $this->venue_type->dropdown($value = 'name');
+			$this->data['venue_types'] = $venue_types;
+
+			$cateror_service_types = $this->cateror_service_types_model->get_cateror_service();
+			$this->data['cateror_service_types'] = $cateror_service_types;
+			
+			$cateror_catering_types = $this->catering_categories_model->get_catering_for();
+			$this->data['cateror_catering_types'] = $cateror_catering_types;
+			
+			$this->load_view('vendors/add_venue_information', 'vendor');
+
+		}
 
 
 
@@ -629,6 +773,139 @@ function addevents() {
 			}
 		}
 		echo 0;
+	}
+
+
+	public function view_all_vendors() {
+		$city_id = '';
+		$city_info = $this->get_city_info(); 
+
+		if($city_info) {
+			$city_all_info = $this->city_model->get_city_info($city_id);
+			$city_id = $city_info['city_id'];
+			$city_name = $city_info['city_name'];
+
+			$this->data['city_id'] 		= $city_id; 
+			$this->data['city_name'] 	= $city_name;
+		}
+
+		$this->data['city_id'] = $city_id;
+		$cities = $this->city_model->dropdown($value = 'name');
+		$this->data['cities'] = $cities;
+
+		$venue_vendors = $this->vendor_venue_information_model->get_venue_details($city_id);
+		$this->data['venue_vendors'] = $venue_vendors;
+
+		$catering_vendors = $this->vendor_catering_service_information_model->get_catering_details($city_id);
+		$this->data['catering_vendors'] = $catering_vendors;
+
+		$photo_vendors = $this->vendor_photo_studio_information_model->get_studio_details($city_id);
+		$this->data['photo_vendors'] = $photo_vendors;
+
+
+		//$venue_vendors = $this->vendor_venue_information_model->get_venue_details($city_id);
+		//$this->data['venue_vendors'] = $venue_vendors;
+
+		$this->load_view('vendors/view_all_vendors' ,'customer');
+
+	}
+
+
+	public function venue_details( $venue_slug = NULL ) {
+		if($venue_slug != NULL) {
+			$venue_id = $this->vendor_venue_information_model->venue_id_from_slug(trim($venue_slug));
+			if($venue_id) {
+				$venue_details = $this->vendor_venue_information_model->venue_info($venue_id);
+				//dump($venue_details);
+
+				$venue_catering_details = $this->venue_catering_menu_model->venue_catering_details($venue_id);
+
+				//dump($venue_catering_details);
+
+				$offers = $this->venue_special_offer_model->venue_offers($venue_id);
+
+				$this->data['details'] = $venue_details;
+				$this->data['venue_catering_details'] = $venue_catering_details;
+				$this->data['offers'] = $offers;
+
+				$this->load_view('vendors/view_venue_details' ,'customer');
+			}else{
+				redirect('vendors');
+			}
+		}else{
+			redirect('vendors');
+		}
+	}
+
+
+	public function catering_details($catering_slug = NULL) {
+		if($catering_slug != NULL) {
+			$catering_id = $this->vendor_catering_service_information_model->catering_id_from_slug(trim($catering_slug));
+			if($catering_id) {
+				$catering_details = $this->vendor_catering_service_information_model->catering_info($catering_id);
+				//dump($venue_details);
+
+				$cateror_menu_details = $this->cateror_menu_model->menu_details($catering_id);
+
+				//dump($venue_catering_details);
+
+				$offers = $this->catering_special_offer_model->catering_offers($catering_id);
+
+				$this->data['details'] = $catering_details;
+				$this->data['cateror_menu_details'] = $cateror_menu_details;
+				$this->data['offers'] = $offers;
+				
+
+				$this->load_view('vendors/view_catering_details' ,'customer');
+			}else{
+				redirect('vendors');
+			}
+		}else{
+			redirect('vendors');
+		}
+	}
+
+
+	public function studio_details($studio_slug) {
+		if($studio_slug != NULL) {
+
+			$studio_id = $this->vendor_photo_studio_information_model->studio_id_from_slug(trim($studio_slug));
+			if($studio_id) {
+				$studio_details 			= $this->vendor_photo_studio_information_model->studio_info($studio_id);
+				$equipments 				= $this->studio_equipment_model->view_all_equipments($studio_id);
+				$offers 					= $this->studio_special_offer_model->studio_offers($studio_id);
+				$this->data['details'] 		= $studio_details;
+				$this->data['equipments'] 	= $equipments;
+				$this->data['offers'] 		= $offers;
+				
+
+				$this->load_view('vendors/view_studio_details' ,'customer');
+			}else{
+				redirect('vendors');
+			}
+		}else{
+			redirect('vendors');
+		}
+	}
+
+	public function api_set_default_city() {
+		if(isset($_GET['city_id']) && $_GET['city_id'] != '') {
+			$city_id = $_GET['city_id'];
+			$city_info = $this->city_model->get_city_info($city_id);
+
+			$city_name = $city_info->name;
+
+			$cookie = array(
+				'name'   => 'city',
+				'value'  => $city_name,
+				'expire' => time()+86500,
+				'secure' => false
+				);
+			set_cookie($cookie);
+
+			echo TRUE;
+		}
+		
 	}
 
 

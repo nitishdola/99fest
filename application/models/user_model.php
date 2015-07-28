@@ -12,6 +12,24 @@ class User_model extends MY_Model {
 			'rules' => 'required|trim'
 		),
 	);
+
+	public $change_password_validation = array(
+		array(
+			'field' => 'old_password',
+			'label' => 'Old Password',
+			'rules' => 'required|trim'
+		),
+		array(
+			'field' => 'new_password',
+			'label' => 'New Password',
+			'rules' => 'required|trim'
+		),
+		array(
+			'field' => 'new_password1',
+			'label' => 'New Password1',
+			'rules' => 'required|trim'
+		),
+	);
 	
 	public $register_validation = array(
 		array(
