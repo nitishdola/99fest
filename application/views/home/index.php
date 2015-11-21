@@ -36,7 +36,7 @@
               <?php echo anchor('events','EVENTS','class="home-tabs"') ?>
             </div>
             <div class="col-md-4 tab-parent">
-            <a class="home-tabs" href="#">VENDORS</a>
+              <?php echo anchor('vendors','VENDORS','class="home-tabs"') ?>
             </div>
             <div class="col-md-4 tab-parent">
             <a href="#" class="home-tabs">EVENT IDEAS</a>

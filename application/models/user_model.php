@@ -15,18 +15,18 @@ class User_model extends MY_Model {
 
 	public $change_password_validation = array(
 		array(
-			'field' => 'old_password',
+			'field' => 'old',
 			'label' => 'Old Password',
 			'rules' => 'required|trim'
 		),
 		array(
-			'field' => 'new_password',
+			'field' => 'new',
 			'label' => 'New Password',
 			'rules' => 'required|trim'
 		),
 		array(
-			'field' => 'new_password1',
-			'label' => 'New Password1',
+			'field' => 'new_confirm',
+			'label' => 'Confirm New Password',
 			'rules' => 'required|trim'
 		),
 	);
@@ -179,5 +179,32 @@ class User_model extends MY_Model {
 			return $this->count_by(array('username' => $email));
 		}
 		
+	}
+
+	public function check_if_forgot_code_exists($email = NULL, $code = NULL) {
+		$this->db->where('users.username', $email);
+		$this->db->where('users.forgotten_password_code', $code);
+		
+		return $this->count_by(array('username' => $email));
+	}
+
+	public function get_user_id( $email = NULL ) {
+		if($email != NULL) {
+
+    		$this->db->select('users.id');
+    		$this->db->from('users');
+    		$this->db->where('users.username', $email);
+		
+			$query = $this->db->get();
+
+			$ret = $query->row(); dump($ret);
+
+			if(!empty($ret)) {
+				return $ret->id;
+			}
+
+			
+    	}
+    	return FALSE;
 	}
 }

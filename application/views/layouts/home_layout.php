@@ -129,6 +129,10 @@
     <div class="scroll-up">
         <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
     </div>
+
+    <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+    <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
+
 	<!-- Wrapper start -->
 
 	
@@ -136,6 +140,7 @@
     <script src="<?php echo asset_url(); ?>js/jquery-2.1.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     
+
     <script src="<?php echo asset_url(); ?>js/jquery.mb.YTPlayer.min.js"></script>
     <script src="<?php echo asset_url(); ?>js/appear.js"></script>
     <script src="<?php echo asset_url(); ?>js/jquery.simple-text-rotator.min.js"></script>

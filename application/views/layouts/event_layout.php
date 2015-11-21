@@ -76,7 +76,8 @@
         <!-- START PLUGINS -->
                
         <!-- END PLUGINS -->
-
+        <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+        <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
         <!-- START THIS PAGE PLUGINS-->        
         <script type='text/javascript' src='<?php echo asset_url(); ?>admin/js/plugins/icheck/icheck.min.js'></script>        
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>

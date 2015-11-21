@@ -29,18 +29,11 @@ class Vendor_stores extends MY_Controller {
 		$vendor_id=$vendor_details[0]->vendor_id;
 		if($user_id) {
 			$service_data = array(
-					
-					'vendor_id' 		  => $vendor_id,
-				
-					'vendor_category_id'  => $this->input->post('category_id'),
-					'type_name' 				  => $this->input->post('name'),
-					'rate' 	          => $this->input->post('price'),
-					
-					
-					
-					
+					'vendor_id' 		  	=> $vendor_id,
+					'vendor_category_id'  	=> $this->input->post('category_id'),
+					'type_name' 			=> $this->input->post('name'),
+					'rate' 	          		=> $this->input->post('price'),
 				);
-				dump($service_data);
 				if($this->db->insert('vendor_services', $service_data)){
 					redirect('vendors/service');
 				}
@@ -51,28 +44,21 @@ class Vendor_stores extends MY_Controller {
   
 
   //category add by admin
-  public function add()
- 	  {
-		if($this->ion_auth->is_admin()) {
-			
-			//$this->load_view('category/add_category' ,'admin');
-			//dump($_POST);
-			$category_data = array(
-					
-					'name' 	=> $this->input->post('name'),
-				
-				);
-			
-				if($this->db->insert('vendor_categories', $category_data))
-				   {
-
-					//if the profile has been created, log in the user and redirect to home
-					redirect('vendors/add_category');
-                    }
-
-	        }
+public function add(){
+	if($this->ion_auth->is_admin()) {
+		$category_data = array(
+			'name' 	=> $this->input->post('name'),
+		);
 		
+		if($this->db->insert('vendor_categories', $category_data))
+		{
+			//if the profile has been created, log in the user and redirect to home
+			redirect('vendors/add_category');
         }
+
+	}
+
+}
 
       //caterriing information register form
       public function add_cateror_details() {
@@ -126,8 +112,6 @@ class Vendor_stores extends MY_Controller {
 
 					$vendor_catering_service_information_id = $this->db->insert_id();
 
-
-
 					for($i = 1; $i <= 3; $i++ ):
 	                 	if($this->input->post('offer_title'.$i) != '' && $this->input->post('offer_details'.$i) != '') {
 	                 		$offer_data = array(
@@ -139,8 +123,6 @@ class Vendor_stores extends MY_Controller {
 	                    	$this->db->insert('catering_special_offers', $offer_data);
 	                 	}
 	                endfor;
-
-
 
 					$counter = $this->input->post('counter');
 		            
@@ -159,10 +141,8 @@ class Vendor_stores extends MY_Controller {
 	                	}
 		                
                     endfor;
-                    //dump($menu_data);
 		           }
 			}   
-
 			//if the profile has been created, log in the user and redirect to home
 			redirect('vendors/vendor_catering');
 		}else{

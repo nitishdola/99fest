@@ -12,6 +12,9 @@
         
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo asset_url(); ?>admin/css/theme-default.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo asset_url(); ?>lightbox/ekko-lightbox.css"/>
+        
+        
         <!-- EOF CSS INCLUDE --> 
 
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/jquery/jquery.min.js"></script>
@@ -19,7 +22,7 @@
         <script type="text/javascript" src="<?php echo asset_url(); ?>admin/js/plugins/bootstrap/bootstrap.min.js"></script>        
 
         
-
+        <script src="<?php echo asset_url(); ?>lightbox/ekko-lightbox.js"></script>
         <script src="<?php echo asset_url(); ?>sweetalert/sweetalert.min.js"></script>
         <link rel="stylesheet" type="text/css" href="<?php echo asset_url(); ?>sweetalert/sweetalert.css">
 
@@ -92,7 +95,8 @@
     <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
 
-        
+        <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+        <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
 
 
         

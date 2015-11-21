@@ -14,6 +14,7 @@ class Events extends MY_Controller {
 		$this->load->model('event_manager_model');
 		$this->load->model('event_booked_ticket_model');
 		$this->load->model('customer_profile_model');
+		$this->load->model('default_image_model');
 
 		$this->load->helper('text');
 
@@ -41,6 +42,10 @@ class Events extends MY_Controller {
 
 		$upcoming_events = $this->event_model->get_upcoming_events( $city_id );
 		$this->data['upcoming_events'] = $upcoming_events;
+
+		$default_event_image = $this->default_image_model->get_all_images($status = 1, $type = 'event');
+		$default_event_image = $default_event_image[0]->path;
+		$this->data['default_event_image'] = $default_event_image;
 		//get sponsored events
 
 		$cities = $this->city_model->dropdown($value = 'name');

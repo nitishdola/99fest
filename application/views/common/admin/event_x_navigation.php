@@ -13,6 +13,8 @@
     <li class="xn-title">Navigation</li>
     <li class="active">
         <?php echo anchor('/event_managers/profile','<span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span>'); ?></a>                        
+        <?php echo anchor('/change-password','<span class="fa fa-desktop"></span> <span class="xn-text">Chnage Password</span>'); ?></a>                        
+        
     </li> 
     <li class="xn-openable">
         <a href="#"><span class="fa fa-clock-o"></span> Events</a>

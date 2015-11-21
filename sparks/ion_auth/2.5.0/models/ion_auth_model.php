@@ -549,6 +549,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function change_password($identity, $old, $new)
 	{
+
 		$this->trigger_events('pre_change_password');
 
 		$this->trigger_events('extra_where');
@@ -556,7 +557,7 @@ class Ion_auth_model extends CI_Model
 		$query = $this->db->select('id, password, salt')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
-		                  ->get($this->tables['users']);
+		                  ->get($this->tables['users']); dump($query);
 
 		if ($query->num_rows() !== 1)
 		{
@@ -564,7 +565,6 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('password_change_unsuccessful');
 			return FALSE;
 		}
-
 		$user = $query->row();
 
 		$old_password_matches = $this->hash_password_db($user->id, $old);
@@ -575,7 +575,7 @@ class Ion_auth_model extends CI_Model
 			$hashed_new_password  = $this->hash_password($new, $user->salt);
 			$data = array(
 			    'password' => $hashed_new_password,
-			    'remember_code' => NULL,
+			    //'remember_code' => NULL,
 			);
 
 			$this->trigger_events('extra_where');
@@ -705,7 +705,7 @@ class Ion_auth_model extends CI_Model
 			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
 		else
 			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
-
+		
 		return $return;
 	}
 

@@ -71,5 +71,14 @@ $route['venue/(:any)']	= 'vendors/venue_details/$1';
 $route['catering/(:any)']	= 'vendors/catering_details/$1';
 $route['photographer/(:any)']	= 'vendors/studio_details/$1';
 
+$route['change-password'] = 'users/change_password';
+$route['forgot-password'] = 'users/forgot_password';
+$route['reset-password/(:any)']  = 'users/reset_password/$1';
+
+$route['add-default-image'] = 'admin/upload_default_image';
+$route['view-default-images'] = 'admin/view_default_image';
+$route['disable-default-image/(:any)'] = 'admin/disable_default_image/$1';
+$route['enable-default-image/(:any)'] = 'admin/enable_default_image/$1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

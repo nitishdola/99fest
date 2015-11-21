@@ -14,7 +14,10 @@
                                     <a href="#support" data-toggle="tab"><span class="icon-tools-2"></span> BOOKING HISTORY</a>
                                 </li>
                                 <li>
-                                    <a href="#sales" data-toggle="tab"><span class="icon-basket"></span> ACCOUNT DETAILS</a>
+                                    <a href="#edit_profile" data-toggle="tab"><span class="icon-basket"></span> ACCOUNT DETAILS</a>
+                                </li>
+                                <li>
+                                    <?= anchor(base_url().'change-password','<span class="icon-basket"></span> CHANGE PASSWORD'); ?> 
                                 </li>
                             </ul>
                             <!-- Nav tabs end -->
@@ -50,7 +53,7 @@
                                 <!-- Tab end -->
 
                                 <!-- Tab start -->
-                                <div class="tab-pane" id="sales">
+                                <div class="tab-pane" id="edit_profile">
                                     <h4 class="font-alt mb-0">EDIT Profile</h4>
                                     <hr class="divider-w mt-10 mb-20">
 

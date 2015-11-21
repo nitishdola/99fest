@@ -49,28 +49,35 @@ li,ul,body,input{margin:0; padding:0; list-style:none}
 	<section class="first-module">
 		<div class="container">
 			<div class="row">
-				<?php if(validation_errors()): ?>
-				<?php echo validation_errors('<div class="alert alert-warning">', '</div>'); ?>
-				<?php endif; ?>
-				<?php if(!empty($error)): ?> 
-					<div class="alert alert-warning">
-						<?php echo $error; ?>
-					</div>
-				<?php endif; ?>
+				<?php if($this->session->flashdata('error_message') != '') { ?>
+                    
+                    <div class="alert alert-danger fade in">
+
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+                        <strong>Error!</strong> <?= $this->session->flashdata('error_message'); ?>
+
+                    </div>
+
+                    <?php } ?>
+
+                    <?php if($this->session->flashdata('success_message') != '') { ?>
+                    
+                    <div class="alert alert-success fade in">
+
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+                        <strong>Success !</strong> <?= $this->session->flashdata('success_message'); ?>
+
+                    </div>
+
+                    <?php } ?>
 			</div>
 
 			
 			<div class="row">
 				<div id="login-form">
-					<input type="radio" checked id="login" name="switch" class="hide">
-					<input type="radio" id="signup" name="switch" class="hide">
 					
-					<div>
-						<ul class="form-header">
-							<li><label for="login"><i class="fa fa-lock"></i> LOGIN<label for="login"></li>
-							<li><label for="signup"><i class="fa fa-credit-card"></i> REGISTER</label></li>
-						</ul>
-					</div>
 
 					<div class="section-out">
 						<section class="login-section">

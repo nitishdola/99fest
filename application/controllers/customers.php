@@ -26,7 +26,6 @@ class Customers extends MY_Controller {
 			$this->load_view('customers/profile', 'customer');
 		//if edit is set
 		}else if($edit == 'edit') {
-			//Set subview and load layout profile edit
 			$this->load_view('customers/edit');
 		}
 		

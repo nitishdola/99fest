@@ -20,7 +20,15 @@ h3 a{
 	<div class="carousel-inner">
 	  
 	<?php foreach($events_home_data as $k => $event): ?>
-	  <div class="item <?php if($k == 0){ ?> active <?php } ?>"> <img src="<?php echo uploads_url().'events/posters/'.$event->poster; ?>" style="width:100%" data-src="" alt="<?php echo $event->eventName; ?>" class="img-responsive"> 
+	  <div class="item <?php if($k == 0){ ?> active <?php } ?>"> 
+	  <?php 
+	  $poster = 'default/'.$default_event_image;
+	  if($event->poster != '') {
+	  	$poster = 'events/posters/'.$event->poster;
+	  }
+	  ?>
+	  <img src="<?php echo uploads_url().$poster; ?>" style="width:100%" data-src="" alt="<?php echo $event->eventName; ?>" class="img-responsive"> 
+	    
 	    <div class="container">
 	    	<div class="carousel-caption">
 		    	<div class="col-md-12">
@@ -62,7 +70,7 @@ h3 a{
 			<div class="row">
 
 				<div class="col-sm-9">
-					<div class="collapse navbar-collapse" id="event-collapse">
+					<div class="" id="event-collapse">
 						<ul class="event-nav" id="event-nav">
 							<li class="">
 								<a href="#" class="select_cat" id="cat_0" data-toggle="">All Categories</a>

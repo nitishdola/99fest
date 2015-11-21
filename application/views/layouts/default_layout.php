@@ -123,7 +123,8 @@
         <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
     </div>
 
-    
+    <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+        <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
     <!-- /.container -->
     
     <!-- Javascript files -->

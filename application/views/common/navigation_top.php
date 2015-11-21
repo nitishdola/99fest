@@ -26,6 +26,9 @@
         .dropdown-menu i {
             padding-right: 3%;
         }
+        p a{
+            color:#333333 !important;
+        }
         </style>
 
         <div class="collapse navbar-collapse" id="custom-collapse">
@@ -80,14 +83,10 @@
                 
                 <li class=""><a class="menu-icon" href="#"><i class="fa fa-bars"></i></a></li>
                 <ul class="side-menu">
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <li class="link"><?php echo anchor('/', 'Home'); ?></li>
-                  <li class="link"><?php echo anchor('/about', 'About Us'); ?></li>
-                  <li class="link"><?php echo anchor('/team', 'Team'); ?></li>
-                  <li class="link"><?php echo anchor('/contact', 'Contact'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/', 'Home'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/about', 'About Us'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/team', 'Team'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/contact', 'Contact'); ?></li>
                 </ul>
             </ul>
             
@@ -305,6 +304,7 @@ a#logi{
 
           </div>
           <div class="modal-footer">
+            <p><?= anchor('forgot-password', 'Forgot your password ?') ?></p>
             <p id="regi_footer">Don't have an account yet? <a href="#" id="regi">Register Here</a></p>
             <p id="login_footer" style="display:none;">Already have an account ? <a href="#" id="logi">Login Here</a></p>
           </div>

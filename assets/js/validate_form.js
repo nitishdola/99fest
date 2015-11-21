@@ -62,3 +62,44 @@ $( "#addVendorSubmit" ).click(function( e ) {
 
 
 });
+
+//Chnage password validation
+$( "#changePasswordForm" ).click(function( e ) {
+  //cancel submission
+  
+  var old_password          = $('#old').val(); 
+  var new_password          = $('#new').val(); 
+  var confirm_new_password  = $('#new_confirm').val(); 
+
+
+  if(jQuery.trim(old_password) == '') {
+    e.preventDefault();
+    alert('old password is empty');
+    $( "#old" ).focus();
+  }else if(jQuery.trim(new_password) == '') {
+    e.preventDefault();
+    alert('New Password is empty');
+    $( "#new" ).focus();
+  }else if(jQuery.trim(confirm_new_password) == '') {
+    e.preventDefault();
+    alert('Confirm password is empty');
+    $( "#new_confirm" ).focus();
+  }else if( jQuery.trim(confirm_new_password) != jQuery.trim(new_password) ) {
+    e.preventDefault();
+    alert('Password did not matched');
+    $( "#new_confirm" ).focus();
+  }
+
+});
+
+$('#defaultImageAddFrom').click(function( e ) {
+  var type = $('#type').val();
+  var img  = $('#featuredimage').val();
+
+  if(type < 0) {
+    e.preventDefault();
+    $( "#type" ).focus();
+  }else if(img == '') {
+    e.preventDefault();
+  }
+});

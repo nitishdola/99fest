@@ -26,6 +26,10 @@
         .dropdown-menu i {
             padding-right: 3%;
         }
+        .link a:hover{
+            background: none !important;
+        }
+  
         </style>
 
         <div class="collapse navbar-collapse" id="custom-collapse">
@@ -75,14 +79,12 @@
 
                 <li class=""><a class="menu-icon" href="#"><i class="fa fa-bars"></i></a></li>
                 <ul class="side-menu">
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <h1>&nbsp;</h1>
-                  <li class="link"><?php echo anchor('/', 'Home'); ?></li>
-                  <li class="link"><?php echo anchor('/about', 'About Us'); ?></li>
-                  <li class="link"><?php echo anchor('/team', 'Team'); ?></li>
-                  <li class="link"><?php echo anchor('/contact', 'Contact'); ?></li>
+                  
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/', 'Home'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/about', 'About Us'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/team', 'Team'); ?></li>
+                  <li class="link" style="margin-top:140px"><?php echo anchor('/contact', 'Contact'); ?></li>
+                
                 </ul>
                 
             </ul>

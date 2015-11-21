@@ -44,7 +44,8 @@
     </div>
     
 
-    
+    <input id="base_url" type="hidden" value="<?= base_url(); ?>" />
+    <script src="<?php echo asset_url(); ?>js/validate_form.js"></script>
     <!-- end:demo-color-pallete -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

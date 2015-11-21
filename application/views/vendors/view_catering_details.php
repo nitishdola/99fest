@@ -161,9 +161,11 @@
 			<p>
 			<button class="btn btn-success btn-lg">Contact Us <br><?= $details->contact_number; ?></button>
 			</p>
+			<!--
 			<p>
 			<button class="btn btn-warning btn-lg">REQUEST BID</button>
 			</p>
+			-->
 		</div>
 	</div>
 

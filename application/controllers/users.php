@@ -13,13 +13,16 @@ class Users extends MY_Controller {
 
 	public function login() {
 
-		
+		$message = '';
 		maintain_ssl();
 
+		/*
 		if ($this->authentication->is_signed_in())
 		{
 			$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
 		}
+		*/
+
 		//redirect if already logged in
 		if($this->ion_auth->logged_in() == TRUE) {
 			$this->navigate_user();
@@ -28,16 +31,27 @@ class Users extends MY_Controller {
 		$this->form_validation->set_rules($this->user_model->login_validation);
 		
 		//Process the form
-		if($this->form_validation->run() == TRUE) {
+		if($this->input->post('loginSubmit') != '') {
+			if($this->form_validation->run() == TRUE) {
 			//If log in successfully, redirect to home page 
-			if($this->ion_auth->login($this->input->post('email'), $this->input->post('password')) == true) {
-				$this->navigate_user();
+				if($this->ion_auth->login($this->input->post('email'), $this->input->post('password')) == true) {
+					$this->navigate_user();
+				}else{
+					$message .= 'Validation failed';
+					$this->session->set_flashdata('error_message', $message);
+					redirect('login');
+				}
 			}else{
-				$this->data['error'] = 'Unable to log in';
+				$message .= 'Validation failed';
+				$this->session->set_flashdata('error_message', $message);
+				redirect('login');
 			}
+		}else{
+			$this->load_view('users/login2');
 		}
+		
 		//Set subview and load layout
-		$this->load_view('users/login2');
+		
 	}
 
 	
@@ -150,7 +164,7 @@ class Users extends MY_Controller {
 					redirect('vendors/add');
 				}
 			}else{
-				$error = array('error' => 'Logo Upload Erro !');
+				$error = array('error' => 'Logo Upload Error !');
 				$this->session->set_flashdata('error_message', $error['error']);
 				redirect('vendors/add');
 			}
@@ -421,16 +435,177 @@ class Users extends MY_Controller {
 	}
 
 	public function change_password() {
-		if ($this->authentication->is_signed_in())
+		if($this->ion_auth->logged_in() == TRUE)
 		{
+			$message = '';
+			
 			$this->form_validation->set_rules($this->user_model->change_password_validation);
 		
 			//Process the form
-			if($this->form_validation->run() == TRUE) {
-				$account_details = $this->account_model->get_by_id($this->session->userdata('account_id'));
+
+			if($this->input->post('addSubmit') != '') {
+				if($this->form_validation->run() == TRUE) {
+				
+				$old = $this->input->post('old');
+				$new = $this->input->post('new');
+				$new_confirm = $this->input->post('new_confirm');
+
+				$user = $this->ion_auth->user();
+				$user_id = $this->ion_auth->get_user_id();
+				$old_password = $this->input->post('old');
+				$user_details = $this->ion_auth->user()->row();
+				//$password_matches = $this->ion_auth->hash_password_db($user_id, $old_password);
+
+				//dump($password_matches);
+				//echo $this->ion_auth->hash_password($new_confirm);
+
+				
+				if($this->ion_auth->change_password($user_details->username, $old, $new)) {
+					$message .= 'Password changed successfully';
+					$this->session->set_flashdata('success_message', $message);
+					
+				}else{
+					$message .= 'Unable to chnage password';
+					$this->session->set_flashdata('error_message', $message);
+				}
+
+				redirect('change-password');
+			}else{
+				$message .= 'Validation Error !';
+				$this->session->set_flashdata('error_message', $message);
 			}
+			}
+			
 
 			$this->load_view('users/change_password', 'customer');
+		}else{
+			redirect('home');
 		}
+	}
+
+
+	public function forgot_password() {
+		$message = '';
+
+		if($this->input->post('email') != '') {
+			//$this->ion_auth->forgotten_password( trim($this->input->post('email')) );
+
+			$email_id = trim($this->input->post('email'));
+			$check_if_email_exists = $this->user_model->check_if_email_exists( $email_id );
+			
+			if($check_if_email_exists) {
+				//send email
+
+				$forgot_password_code = $this->generateRandomString();
+
+				//insert the code in users table
+				$user_id = $this->user_model->get_user_id($email_id);
+
+				$user_update_date = array(
+					'forgotten_password_code' => $forgot_password_code,
+				);
+
+				if($this->user_model->update($user_id, $user_update_date)) {
+
+					//prepare the email 
+					$to = $email_id;
+
+					$subject = '99fest Password Rset Assistance ';
+
+					$headers = "From: " . strip_tags($this->config->item('forgot_password_email')) . "\r\n";
+					//$headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
+					$url_encode = $this->base64_url_encode($email_id).'++___++'.$forgot_password_code;
+		
+		
+					$headers .= "MIME-Version: 1.0\r\n";
+					$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+					$mail_message = '<html><body>';
+					$mail_message .= '<p> We received a request to reset the password associated with this e-mail address. If you made this request, please follow the instructions below.
+Click on the link below to reset your password: </p>';
+					$mail_message .= 'Click '.anchor(base_url().'reset-password/'.$url_encode,'here').'</p>';
+					$mail_message .= '<p> If you did not request to have your password reset you can safely ignore this email </p>';
+					$mail_message .= '</body></html>';
+
+					mail($to, $subject, $mail_message, $headers);
+
+					$message .= 'An Email has been sent to '.$email_id.' . Please check for for further instructions.';
+					$this->session->set_flashdata('success_message', $message);
+					redirect('forgot-password');
+				}else{
+					$message .= 'Unable to send request. please try later';
+					$this->session->set_flashdata('error_message', $message);
+					redirect('forgot-password');
+				}
+			}else{
+				$message .= 'Invalid Email Id Entered !';
+				$this->session->set_flashdata('error_message', $message);
+				redirect('forgot-password');
+			}
+		}
+		$this->load_view('users/forgot_password', 'customer');
+	}
+
+	public function reset_password($url = NULL) {
+		//reset-password
+		$arr = explode('++___++', $url);
+
+		$email = $this->base64_url_decode($arr[0]);
+		$code  = $arr[1];
+		if($email != NULL && $code != NULL ) {
+			$check = $this->user_model->check_if_forgot_code_exists($email, $code);
+			if($check) {
+				$this->data['email'] = $email;
+				$this->load_view('users/reset_password', 'customer');
+			}else{
+				$message .= 'Invalid code. Please reset again. !';
+				$this->session->set_flashdata('error_message', $message);
+				redirect('forgot-password');
+			}
+		}else{
+			$message .= 'Invalid code. Please reset again. !';
+			$this->session->set_flashdata('error_message', $message);
+			redirect('forgot-password');
+		}
+	}
+
+	public function reset_new_password() {
+		//hash_password
+		$message = '';
+
+		if($this->input->post('new') != '') {
+			$new 		= $this->input->post('new');
+			$confirm 	= $this->input->post('new_confirm');
+
+			if($new === $confirm) {
+				//update the database 
+				$email 	= $this->input->post('value');
+				$user_id = $this->user_model->get_user_id($email);
+
+
+				$new_password = $this->ion_auth->hash_password( $confirm );
+				$data = array(
+				               'password' => $new_password,
+				               'forgotten_password_code' => '',
+				            );
+
+				if($this->user_model->update($user_id, $data)) {
+					$message .= 'Password chnaged ! login with your new password.';
+					$this->session->set_flashdata('success_message', $message);
+					redirect('login');
+				}
+			}
+		}
+
+	}
+
+	function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
 	}
 }

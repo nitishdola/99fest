@@ -57,6 +57,16 @@
             <li><a href="#"><span class="fa fa-cogs"></span> View</a></li>
         </ul>
     </li> 
+
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Default Images</span></a>                        
+        <ul>
+            <li><?php echo anchor('/add-default-image','<span class="fa fa-heart"></span> Add</a>') ?></li>                                                       
+            <li><?php echo anchor('/view-default-images','<span class="fa fa-heart"></span> View</a>') ?></li>                                                       
+        </ul>
+    </li> 
+
+
     <li>
         <?php echo anchor('event_categories/add', '<span class="fa fa-files-o"></span> <span class="xn-text">Add a category', 'class="no-class"') ?>
     </li>

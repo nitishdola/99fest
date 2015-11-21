@@ -18,13 +18,38 @@ body{
                 <div class="container">
  
                     <div class="row">
+	                    <div class="col-md-12">
+	                    	<?php if($this->session->flashdata('error_message') != '') { ?>
+	                    
+		                    <div class="alert alert-danger fade in">
 
+		                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+		                        <strong>Error!</strong> <?= $this->session->flashdata('error_message'); ?>
+
+		                    </div>
+
+		                    <?php } ?>
+
+		                    <?php if($this->session->flashdata('success_message') != '') { ?>
+		                    
+		                    <div class="alert alert-success fade in">
+
+		                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+		                        <strong>Success !</strong> <?= $this->session->flashdata('success_message'); ?>
+
+		                    </div>
+
+		                    <?php } ?>
+		                </div>
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                             <div class="form-bottom" id="loginForm">
 			                    <?php
 		                    	$attributes = array('id' => 'logr', 'class' => 'login-form');
 								echo form_open('users/login', $attributes);
 								?>
+					
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Email</label>
 			                        	
@@ -55,10 +80,11 @@ body{
 				                        ?>
 				                        <?php echo form_input($pwdata);?>
 			                        </div>
+			                        <input type="hidden" name="loginSubmit" value='1' />
 			                        <button type="submit" class="btn">Sign in!</button>
 			                    <?php echo form_close(); ?>
 			                    <div class="new-user-login">
-			                    
+			                    	<p><?= anchor('forgot-password', 'Forgot Password'); ?></p>
 			                    	New user create account <a href="#" id="showSignUpForm"> Register Here</a>
 			                    	<div class="col-md-8" style="float:right">
 				                 		Or Login With
@@ -86,6 +112,8 @@ body{
 						                          'id'          => 'first_name',
 						                          'placeholder' => 'Enter your first name',
 						                          'class'       => 'form-control input',
+				                          			'required'    => true,
+
 						                        );
 
 						                        ?>
